@@ -1,0 +1,53 @@
+{
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es2022": true
+  },
+  "globals": { "_": true, "axios": true },
+  "plugins": ["import", "html"],
+  "extends": ["airbnb-base", "prettier"],
+  "rules": {
+    "no-console": "warn",
+    "no-plusplus": "off",
+    "no-shadow": "off",
+    "vars-on-top": "off",
+    "no-underscore-dangle": "off", // var _foo;
+    "comma-dangle": "off",
+    "func-names": "off", // setTimeout(function () {}, 0);
+    "prefer-template": "off",
+    "no-nested-ternary": "off",
+    "max-classes-per-file": "off",
+    "consistent-return": "off",
+    "no-restricted-syntax": ["off", "ForOfStatement"], // disallow specified syntax(ex. WithStatement)
+    "prefer-arrow-callback": "error", // Require using arrow functions for callbacks
+    "require-await": "error",
+    "arrow-parens": ["error", "as-needed"], // a => {}
+    "no-param-reassign": ["error", { "props": false }],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTernary": true, // a || b
+        "allowShortCircuit": true, // a ? b : 0
+        "allowTaggedTemplates": true
+      }
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/extensions": ["off"],
+    "import/no-cycle": ["off"],
+    "class-methods-use-this": ["off"],
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+.button-small {
+  @apply w-[84px] h-6;
+  @apply border rounded border-gray-border;
+  @apply shadow-light dark:shadow-dark;
+  @apply text-sm font-bold tracking-wide;
+}
+
+.button-big {
+  @apply w-[153px] h-8;
+  @apply border rounded border-gray-border;
+  @apply shadow-light dark:shadow-dark;
+  @apply text-lg font-bold tracking-wide;
+}
+
+.button-long {
+  @apply w-[175px] h-6;
+  @apply border rounded border-gray-border;
+  @apply shadow-light dark:shadow-dark;
+  @apply text-sm font-bold tracking-wide;
+}
