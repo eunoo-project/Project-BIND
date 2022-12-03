@@ -25,4 +25,4 @@ Big.args = { size: 'big', content: '로그인' };
 //Long
 export const Long = Template.bind({});
 
-Long.args = { size: 'long', content: '프로필편집' };
+Long.args = { size: 'long', content: '프로필 편집' };
