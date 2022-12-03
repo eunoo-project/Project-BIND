@@ -1,0 +1,26 @@
+.container {
+  @apply w-full;
+  @apply flex items-center;
+  @apply p-3 gap-2;
+  @apply list-none;
+}
+
+.myMessage {
+  @apply max-w-[19rem] min-h-[36px];
+  @apply flex items-center;
+  @apply px-3 py-1;
+  @apply border border-gray-border rounded;
+}
+
+.othersMessage {
+  @apply max-w-[19rem] min-h-[36px];
+  @apply flex items-center;
+  @apply px-3 py-1;
+  @apply text-white bg-gray-bg;
+  @apply border border-gray-bg rounded;
+}
+
+.time {
+  @apply text-xs text-black font-bold;
+  @apply self-end;
+}
