@@ -8,7 +8,6 @@ interface ButtonProps {
 }
 
 export const Button = ({ size, content, ...args }: ButtonProps) => {
-  console.log(content);
   return (
     <>
       <button className={styles['button-' + size]} {...args}>
