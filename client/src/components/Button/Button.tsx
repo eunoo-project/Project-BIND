@@ -19,7 +19,7 @@ export const Button = ({ size, content, ...args }: ButtonProps) => {
 
 Button.defaultProps = {
   size: 'small',
-  contnet: 'button',
+  content: 'button',
 };
 
 // import { useEffect } from 'react';
