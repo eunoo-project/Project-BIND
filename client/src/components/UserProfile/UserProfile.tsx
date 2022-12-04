@@ -17,9 +17,9 @@ interface UserProfileProps {
 export const UserProfile = ({ id, size, img, ...props }: UserProfileProps) => (
   <button className={classNames(styles.button, size === 'big' && 'flex-col') } {...props}>
     {size === 'big' ? (
-      img ?  '이미지' : <BigProfile fill="black" />
+      img ?  '이미지' : <BigProfile fill="#222222" />
     ) : (
-      img ?  '이미지' : <SmallProfile fill="black" />
+      img ?  '이미지' : <SmallProfile fill="#222222" />
     )}
     <span className={styles.id}>{id}</span>
   </button>

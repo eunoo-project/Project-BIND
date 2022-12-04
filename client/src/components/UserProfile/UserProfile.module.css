@@ -3,6 +3,6 @@
 }
 
 .id {
-  @apply font-semibold;
+  @apply font-semibold text-black dark:text-white;
   @apply self-center;
 }
