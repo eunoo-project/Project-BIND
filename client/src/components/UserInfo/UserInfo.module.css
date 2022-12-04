@@ -1,0 +1,16 @@
+.container {
+  @apply w-[175px] h-12;
+  @apply flex flex-wrap justify-between;
+  @apply font-bold text-black dark:text-white;
+}
+
+.dd {
+  @apply w-[45px];
+  @apply text-center;
+}
+
+.dt {
+  @apply w-[45px];
+  @apply text-center;
+  @apply order-1;
+}
