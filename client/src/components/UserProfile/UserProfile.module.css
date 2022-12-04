@@ -1,0 +1,8 @@
+.button {
+  @apply inline-flex align-middle gap-2;
+}
+
+.id {
+  @apply font-semibold;
+  @apply self-center;
+}
