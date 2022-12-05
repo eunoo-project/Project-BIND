@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -11,5 +11,4 @@ const postSchema = new mongoose.Schema({
   editDate: { type: Date },
 });
 
-const Post = mongoose.model('Post', postSchema);
-export default Post;
+module.exports = mongoose.model('Post', postSchema);

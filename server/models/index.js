@@ -1,5 +1,3 @@
-import User from './User';
-import Post from './Post';
-import Chat from './Chat';
-
-export { User, Post, Chat };
+module.exports.User = require('./User');
+module.exports.Post = require('./Post');
+module.exports.Chat = require('./Chat');
