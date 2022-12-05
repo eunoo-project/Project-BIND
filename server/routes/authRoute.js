@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { uploadImage, deleteImage } = require('../utils/multer');
 const { User } = require('../models');
 
-// register
+// register -----------------------------------------------------
 router.post('/register', async (req, res) => {
   // id 중복 체크
   const idExist = await User.findOne({ userId: req.body.userId });
@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// login
+// login -----------------------------------------------------
 router.post('/signin', async (req, res) => {
   // 가입된 유저 판단
   const user = await User.findOne({ userId: req.body.userId });
@@ -61,13 +61,13 @@ router.post('/signin', async (req, res) => {
   res.set('auth-token', token).status(200).send({ response });
 });
 
-// logout
+// logout -----------------------------------------------------
 router.post('/signout', (req, res) => {
   res.clearCookie('accessToken');
   res.end();
 });
 
-// 프로필 이미지 변경
+// 프로필 이미지 변경 -----------------------------------------------------
 router.post('/profile', uploadImage.single('image'), async (req, res) => {
   const imageURL = req.file.path;
   if (!imageURL) return res.status(400).send('이미지가 존재하지 않습니다.');
