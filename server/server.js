@@ -22,6 +22,7 @@ app.use(cors(corsOptions));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static('uploads'));
 
 // socket.io 확장
 const server = require('http').createServer(app);
