@@ -67,15 +67,18 @@ router.post('/signout', (req, res) => {
   res.end();
 });
 
-router.post('/profile', uploadImage.single('image'), (req, res) => {
-  const image = req.file.path;
-  if (!image) return res.status(400).send('이미지가 존재하지 않습니다.');
-  res.end();
-});
+// 프로필 이미지 변경
+router.post('/profile', uploadImage.single('image'), async (req, res) => {
+  const imageURL = req.file.path;
+  if (!imageURL) return res.status(400).send('이미지가 존재하지 않습니다.');
 
-router.post('/delete', (req, res) => {
-  deleteImage('image-1670245241081.png');
-  res.send('지웠땽');
+  const user = await User.findOne({ userId: req.body.userId });
+
+  if (user.imageURL) deleteImage(user.imageURL);
+
+  await user.updateOne({ imageURL });
+
+  res.end();
 });
 
 module.exports = router;

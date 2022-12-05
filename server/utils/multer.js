@@ -33,10 +33,10 @@ const uploadImage = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-const deleteImage = imageName => {
-  if (fs.existsSync('uploads/' + imageName)) {
+const deleteImage = imagePath => {
+  if (fs.existsSync(imagePath)) {
     try {
-      fs.unlinkSync('uploads/' + imageName);
+      fs.unlinkSync(imagePath);
     } catch (error) {
       console.log(error);
     }
