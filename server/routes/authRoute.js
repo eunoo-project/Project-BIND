@@ -58,12 +58,41 @@ router.post('/signin', async (req, res) => {
 
   const response = { _id: user._id, userId: user.userId };
 
-  res.set('auth-token', token).status(200).send({ response });
+  res.status(200).send({ response });
 });
 
 // logout -----------------------------------------------------
 router.post('/signout', (req, res) => {
   res.clearCookie('accessToken');
+  res.end();
+});
+
+// userInfo -----------------------------------------------------
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({ _id: id });
+
+  res.send(user);
+});
+
+// bind -----------------------------------------------------
+router.post('/bind', async (req, res) => {
+  const { me, opponent } = req.body;
+
+  await User.findOneAndUpdate({ _id: me }, { $push: { binding: opponent } });
+  await User.findOneAndUpdate({ _id: opponent }, { $push: { binder: me } });
+
+  res.end();
+});
+
+// unbind -----------------------------------------------------
+router.post('/unbind', async (req, res) => {
+  const { me, opponent } = req.body;
+
+  await User.findOneAndUpdate({ _id: me }, { $pull: { binding: opponent } });
+  await User.findOneAndUpdate({ _id: opponent }, { $pull: { binder: me } });
+
   res.end();
 });
 
