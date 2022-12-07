@@ -7,6 +7,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     'storybook-css-modules',
+    '@storybook/addon-a11y',
     {
       //postcss를 활용할 수 있도록 이 부분 추가.
       name: '@storybook/addon-postcss',

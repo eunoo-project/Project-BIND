@@ -6,7 +6,7 @@
 }
 
 .myMessage {
-  @apply max-w-[19rem] min-h-[36px];
+  @apply max-w-[13rem] min-h-[36px];
   @apply flex items-center;
   @apply px-3 py-1;
   @apply text-black dark:text-white;
@@ -14,7 +14,7 @@
 }
 
 .othersMessage {
-  @apply max-w-[19rem] min-h-[36px];
+  @apply max-w-[13rem] min-h-[36px];
   @apply flex items-center;
   @apply px-3 py-1;
   @apply text-white bg-gray-bg;

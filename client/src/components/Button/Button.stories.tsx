@@ -5,7 +5,7 @@ export default {
   title: 'Components/Button',
   component: Button,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'centered',
   },
 } as ComponentMeta<typeof Button>;
 

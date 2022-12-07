@@ -5,6 +5,6 @@ addons.setConfig({
   theme: themes.light,
   panelPosition: 'right',
   sidebar: {
-    showRoots: false,
+    showRoots: true,
   },
 });

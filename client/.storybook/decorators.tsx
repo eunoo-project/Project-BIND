@@ -1,11 +1,7 @@
 import React from 'react';
 
 const withBackground = StoryFn => (
-  <div
-    style={{
-      background: '#fff',
-      height: '100vh',
-    }}>
+  <div style={{}}>
     <StoryFn />
   </div>
 );
