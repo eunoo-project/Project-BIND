@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const chatSchema = new mongoose.Schema({
-  participants: [{ type: String }],
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   chatting: [
     {
       id: String,
       message: String,
-      idRead: Boolean,
+      isRead: { type: Boolean, default: false },
       time: { type: Date, default: Date.now() },
     },
   ],
