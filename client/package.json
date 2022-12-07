@@ -11,6 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.19.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
@@ -21,6 +22,7 @@
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "recoil": "^0.7.6",
     "socket.io-client": "^4.5.4",
     "tailwindcss-safe-area": "^0.2.2",
     "typescript": "4.9.3"
