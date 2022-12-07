@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema({
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
   binder: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   binding: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' }],
   joinDate: { type: Date, default: Date.now() },
 });
 

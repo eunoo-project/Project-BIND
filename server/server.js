@@ -34,7 +34,7 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
     credentials: true,
   },
-  path: '/chat',
+  path: '/chatting',
 });
 
 // DB 연결
