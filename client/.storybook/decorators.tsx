@@ -1,9 +1,12 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 
 const withBackground = StoryFn => (
-  <div style={{}}>
-    <StoryFn />
-  </div>
+  <RecoilRoot>
+    <div style={{}}>
+      <StoryFn />
+    </div>
+  </RecoilRoot>
 );
 
 export const globalDecorators = [withBackground];
