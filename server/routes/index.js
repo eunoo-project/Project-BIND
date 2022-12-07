@@ -1,10 +1,3 @@
-const express = require('express');
-
-const router = express.Router();
-
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
+module.exports.authRoute = require('./authRoute');
+module.exports.chatRoute = require('./chatRoute');
+module.exports.postRoute = require('./postRoute');

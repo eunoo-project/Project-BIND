@@ -16,10 +16,13 @@ const corsOptions = {
   credentials: true,
 };
 
+// 미들웨어 적용
+
 app.use(cors(corsOptions));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static('uploads'));
 
 // socket.io 확장
 const server = require('http').createServer(app);
@@ -31,7 +34,7 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
     credentials: true,
   },
-  path: '/chat',
+  path: '/chatting',
 });
 
 // DB 연결
@@ -45,15 +48,11 @@ mongoose
 
 // rest API routes
 
-app.get('/', (req, res) => {
-  res.send('<div style="width:100px; height:100px; background:red">성공</div>');
-});
+const { authRoute, chatRoute, postRoute } = require('./routes');
 
-app.get('/test', (req, res) => {
-  res.send(
-    '<div style="width:100px; height:100px; background:yellow">test</div>'
-  );
-});
+app.use('/user', authRoute);
+app.use('/post', postRoute);
+app.use('/chat', chatRoute);
 
 // socket.io 구성
 
