@@ -1,15 +1,15 @@
 interface isValidateProps {
   userId: string;
   password: string;
-  conformPassword?: string;
+  confirmPassword?: string;
 }
 
 export const isValidate = ({
   userId,
   password,
-  conformPassword,
+  confirmPassword,
 }: isValidateProps) => {
-  if (!conformPassword) {
+  if (!confirmPassword) {
     return !(
       /^[a-z][a-z0-9_]{4,11}$/.test(userId) &&
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(password)
@@ -18,6 +18,6 @@ export const isValidate = ({
   return !(
     /^[a-z][a-z0-9_]{4,11}$/.test(userId) &&
     /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(password) &&
-    password === conformPassword
+    password === confirmPassword
   );
 };
