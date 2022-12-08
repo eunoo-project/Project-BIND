@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 
 // cors 옵션 설정
-const safesitelist = ['http://localhost:3000'];
+const safesitelist = ['http://localhost:3000', 'http://localhost:6006'];
 const corsOptions = {
   origin(origin, callback) {
     const issafesitelisted = safesitelist.indexOf(origin) !== -1;
