@@ -1,0 +1,17 @@
+.container {
+  @apply flex flex-col justify-center items-center;
+}
+
+.container div:first-child {
+  @apply mb-9;
+}
+
+.output {
+  @apply h-5;
+  @apply text-red;
+  @apply mt-5 mb-5;
+}
+
+.link {
+  @apply mt-7 text-blue-400 underline cursor-pointer;
+}
