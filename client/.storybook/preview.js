@@ -28,6 +28,7 @@ export const parameters = {
       ...INITIAL_VIEWPORTS,
       ...customViewport,
     },
+    defaultViewport: 'iPhone8',
   },
   a11y: {
     config: { locale: ko },

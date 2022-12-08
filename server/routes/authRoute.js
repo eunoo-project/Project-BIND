@@ -42,11 +42,11 @@ router.post('/register', async (req, res) => {
 router.post('/signin', async (req, res) => {
   // 가입된 유저 판단
   const user = await User.findOne({ userId: req.body.userId });
-  if (!user) return res.status(400).send('존재하지 않는 아이디입니다.');
+  if (!user) return res.send('존재하지 않는 아이디입니다.');
 
   // 패스워드 체크
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send('비밀번호를 확인해주세요.');
+  if (!validPassword) return res.send('비밀번호를 확인해주세요.');
 
   // 토큰 생성
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);

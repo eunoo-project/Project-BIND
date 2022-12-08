@@ -1,23 +1,28 @@
-.button-small {
-  @apply w-[84px] h-6;
+.button {
   @apply border rounded border-gray-border;
   @apply shadow-light dark:shadow-dark;
-  @apply text-sm font-bold tracking-wide;
+  @apply font-bold tracking-wide;
   @apply bg-white dark:bg-black;
+  @apply transition-all;
+  @apply outline-none ease-in active:bg-gray-border;
+}
+
+.button-small {
+  @apply w-[84px] h-6;
+  @apply text-sm;
 }
 
 .button-big {
   @apply w-[153px] h-8;
-  @apply border rounded border-gray-border;
-  @apply shadow-light dark:shadow-dark;
-  @apply text-lg font-bold tracking-wide;
-  @apply bg-white dark:bg-black;
+  @apply text-xl;
 }
 
 .button-long {
   @apply w-[175px] h-6;
-  @apply border rounded border-gray-border;
-  @apply shadow-light dark:shadow-dark;
-  @apply text-sm font-bold tracking-wide;
-  @apply bg-white dark:bg-black;
+  @apply text-sm;
+}
+
+.button:disabled {
+  @apply text-gray-600 bg-gray-bg opacity-50;
+  @apply cursor-not-allowed;
 }

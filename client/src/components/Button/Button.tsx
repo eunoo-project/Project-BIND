@@ -1,5 +1,5 @@
 import styles from './Button.module.css';
-
+import classNames from 'classnames';
 interface ButtonProps {
   size?: 'small' | 'big' | 'long';
   content?: string;
@@ -10,7 +10,9 @@ interface ButtonProps {
 export const Button = ({ size, content, ...args }: ButtonProps) => {
   return (
     <>
-      <button className={styles['button-' + size]} {...args}>
+      <button
+        className={classNames(styles.button, styles['button-' + size])}
+        {...args}>
         {content && content.length < 4 ? content?.split('').join(' ') : content}
       </button>
     </>
@@ -26,6 +28,7 @@ Button.defaultProps = {
 // import axios from 'axios';
 // import { io } from 'socket.io-client';
 // import content from '../../../globals.d';
+// import { classNames } from 'classnames';
 // useEffect((): any => {
 // const fetch = async () => {
 //   const { data } = await axios.get('http://localhost:5500/');
