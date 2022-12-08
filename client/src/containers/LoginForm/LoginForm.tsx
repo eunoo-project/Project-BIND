@@ -7,7 +7,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { userState } from '@/states';
 
-export const LoginFrom = () => {
+export const LoginForm = () => {
   const [, setUser] = useRecoilState(userState);
 
   const [inputs, setInputs] = useState({
@@ -52,8 +52,8 @@ export const LoginFrom = () => {
       <FormInput
         type="password"
         name="password"
-        label="패스워드"
-        placeholder="패스워드를 입력하세요."
+        label="비밀번호"
+        placeholder="비밀번호를 입력하세요."
         onChange={handleChange}
       />
       <output className={styles.output}>{errorMessage}</output>

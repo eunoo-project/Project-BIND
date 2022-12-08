@@ -1,0 +1,12 @@
+.main {
+  @apply h-screen bg-gradient;
+  @apply flex justify-center items-center;
+}
+
+.container {
+  @apply flex flex-col items-center gap-8;
+}
+
+.logo {
+  @apply inline-block;
+}

@@ -8,7 +8,7 @@ const { User } = require('../models');
 router.post('/register', async (req, res) => {
   // id 중복 체크
   const idExist = await User.findOne({ userId: req.body.userId });
-  if (idExist) return res.status(400).send('이미 존재하는 id입니다.');
+  if (idExist) return res.send('이미 존재하는 id입니다.');
 
   // 패스워드 Hash
   const salt = await bcrypt.genSalt(10);
