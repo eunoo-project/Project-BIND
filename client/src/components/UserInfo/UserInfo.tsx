@@ -11,11 +11,11 @@ interface UserInfoProps {
 
 export const UserInfo = ({ binderCnt, bindingCnt, postCnt }: UserInfoProps) => (
   <dl className={styles.container}>
-    <dt className={styles.dt}>포스트</dt>
-    <dd className={styles.dd}>{postCnt}</dd>
-    <dt className={styles.dt}>바인딩</dt>
-    <dd className={styles.dd}>{bindingCnt}</dd>
-    <dt className={styles.dt}>바인더</dt>
-    <dd className={styles.dd}>{binderCnt}</dd>
+    <dt>포스트</dt>
+    <dd>{postCnt}</dd>
+    <dt>바인딩</dt>
+    <dd>{bindingCnt}</dd>
+    <dt>바인더</dt>
+    <dd>{binderCnt}</dd>
   </dl>
 );
