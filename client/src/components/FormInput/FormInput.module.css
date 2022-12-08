@@ -1,0 +1,32 @@
+.conatiner {
+  @apply relative inline-block;
+}
+
+.label {
+  @apply transition-all absolute top-2.5 left-2;
+  @apply font-bold;
+  @apply text-black;
+}
+
+.input {
+  @apply appearance-none;
+  @apply w-[263px] h-11;
+  @apply text-black;
+  @apply border border-gray-border rounded shadow-light;
+  @apply p-3;
+  @apply outline-0;
+  @apply placeholder:text-white;
+  @apply transition ease-in focus:ring-[3px] focus:ring-gray-fill;
+}
+
+.input:focus {
+  @apply placeholder:text-gray-bg;
+}
+
+.input:focus ~ label {
+  @apply transition-all ease-linear text-xs top-[-23px];
+}
+
+.input:valid ~ label {
+  @apply text-xs top-[-23px];
+}
