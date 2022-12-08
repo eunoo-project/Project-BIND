@@ -1,13 +1,14 @@
-import { LoginFrom } from '@/containers';
+import Login from '@/pages/login';
 // import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'containers/LoginFrom',
-  component: LoginFrom,
+  title: 'pages/Login',
+  component: Login,
+  parameters: {},
 };
 
 // 템플릿 생성
-const Template = () => <LoginFrom />;
+const Template = () => <Login />;
 
 // default
 export const Default = Template.bind({});

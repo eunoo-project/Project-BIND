@@ -1,5 +1,4 @@
 .container {
-  @apply w-full;
   @apply flex items-center;
   @apply p-3 gap-2;
   @apply list-none;
