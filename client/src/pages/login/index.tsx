@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '@/styles/login.module.css';
-import { LoginFrom } from '@/containers';
+import { LoginForm } from '@/containers';
 import Logo from '@/../public/assets/logo-big.svg';
 
 const Login = () => (
@@ -17,7 +17,7 @@ const Login = () => (
         <p className={styles.description}>
           지금 친구들과 함께 BIND로 묶여보세요!
         </p>
-        <LoginFrom />
+        <LoginForm />
       </div>
     </main>
   </>
