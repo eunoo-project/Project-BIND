@@ -13,5 +13,5 @@
 }
 
 .link {
-  @apply mt-7 text-blue-400 underline cursor-pointer;
+  @apply inline-block mt-7 text-blue-400 underline cursor-pointer;
 }

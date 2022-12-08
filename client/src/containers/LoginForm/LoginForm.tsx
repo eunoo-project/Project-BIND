@@ -40,34 +40,31 @@ export const LoginFrom = () => {
     if (typeof response === 'string') setErrorMessage(response);
     else setUser(response.response);
   };
-
   return (
-    <div>
-      <form className={styles.container} onSubmit={handleSubmit}>
-        <FormInput
-          type="text"
-          name="userId"
-          label="아이디"
-          placeholder="아이디를 입력하세요."
-          onChange={handleChange}
-        />
-        <FormInput
-          type="password"
-          name="password"
-          label="패스워드"
-          placeholder="패스워드를 입력하세요."
-          onChange={handleChange}
-        />
-        <output className={styles.output}>{errorMessage}</output>
-        <Button
-          size="big"
-          content="로그인"
-          disabled={isValidate(inputs) && 'disabled'}
-        />
-        <Link href="/signup">
-          <span className={styles.link}>회원가입</span>
-        </Link>
-      </form>
-    </div>
+    <form className={styles.container} onSubmit={handleSubmit}>
+      <FormInput
+        type="text"
+        name="userId"
+        label="아이디"
+        placeholder="아이디를 입력하세요."
+        onChange={handleChange}
+      />
+      <FormInput
+        type="password"
+        name="password"
+        label="패스워드"
+        placeholder="패스워드를 입력하세요."
+        onChange={handleChange}
+      />
+      <output className={styles.output}>{errorMessage}</output>
+      <Button
+        size="big"
+        content="로그인"
+        disabled={isValidate(inputs) && 'disabled'}
+      />
+      <Link href="/signup">
+        <span className={styles.link}>회원가입</span>
+      </Link>
+    </form>
   );
 };

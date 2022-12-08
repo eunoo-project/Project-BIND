@@ -4,14 +4,6 @@ import { LoginFrom } from '@/containers';
 export default {
   title: 'containers/LoginFrom',
   component: LoginFrom,
-  parameters: {},
-  decorators: [
-    (Story: any) => (
-      <div style={{ margin: '30px' }}>
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 // 템플릿 생성
