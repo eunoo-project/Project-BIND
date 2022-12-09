@@ -41,13 +41,19 @@ export const parameters = {
         name: 'Light',
         class: [],
         color: '#fefefe',
-        default: true,
       },
       {
         name: 'Dark',
-        class: ['dark'],
-        color: '#eee',
+        class: 'dark',
+        color: '#222222',
       },
+    ],
+  },
+  backgrounds: {
+    default: 'Light',
+    values: [
+      { name: 'Light', value: '#fefefe' },
+      { name: 'Dark', value: '#222222' },
     ],
   },
 };
