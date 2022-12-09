@@ -34,6 +34,22 @@ export const parameters = {
   a11y: {
     config: { locale: ko },
   },
+  themes: {
+    clearable: false,
+    list: [
+      {
+        name: 'Light',
+        class: [],
+        color: '#fefefe',
+        default: true,
+      },
+      {
+        name: 'Dark',
+        class: ['dark'],
+        color: '#eee',
+      },
+    ],
+  },
 };
 
 export const decorators = globalDecorators;
