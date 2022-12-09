@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  svg {
+    @apply fill-black;
+  }
+
+  .dark svg {
+    @apply fill-white;
+  }
+}
+
 @layer utilities {
   .bg-gradient {
     background: linear-gradient(180deg, #c9c9c9 0%, #ffffff 100%);
