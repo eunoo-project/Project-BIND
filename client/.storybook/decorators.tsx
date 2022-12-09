@@ -3,7 +3,7 @@ import { RecoilRoot } from 'recoil';
 
 const withBackground = StoryFn => (
   <RecoilRoot>
-    <div style={{}}>
+    <div className="dark:bg-black dark:text-white">
       <StoryFn />
     </div>
   </RecoilRoot>

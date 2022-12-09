@@ -1,7 +1,7 @@
 .container {
   @apply w-[175px] h-12;
-  @apply flex flex-wrap justify-between;
-  @apply font-bold text-black dark:text-white;
+  @apply inline-flex flex-wrap justify-between;
+  @apply font-bold;
 }
 
 .container dd {

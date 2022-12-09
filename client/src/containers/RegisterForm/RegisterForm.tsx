@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 export const RegisterForm = () => {
   const [, setUser] = useRecoilState(userState);
-  const router = useRouter();
+  // const router = useRouter();
 
   const [inputs, setInputs] = useState({
     userId: '',
@@ -43,7 +43,7 @@ export const RegisterForm = () => {
     if (typeof response === 'string') setErrorMessage(response);
     else {
       setUser(response.response);
-      router.push('/');
+      // router.push('/');
     }
   };
   return (

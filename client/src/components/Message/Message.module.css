@@ -8,7 +8,6 @@
   @apply max-w-[13rem] min-h-[36px];
   @apply flex items-center;
   @apply px-3 py-1;
-  @apply text-black dark:text-white;
   @apply border border-gray-border rounded;
 }
 
@@ -21,6 +20,6 @@
 }
 
 .time {
-  @apply text-xs text-black font-bold dark:text-white;
+  @apply text-xs font-bold;
   @apply self-end;
 }
