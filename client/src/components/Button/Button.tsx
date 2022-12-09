@@ -1,5 +1,6 @@
 import styles from './Button.module.css';
 import classNames from 'classnames';
+
 interface ButtonProps {
   size?: 'small' | 'big' | 'long';
   content?: string;
@@ -7,21 +8,22 @@ interface ButtonProps {
   [key: string]: unknown;
 }
 
+const darkMode = 'dark:bg-black dark:shadow-dark';
+
 export const Button = ({ size, content, ...args }: ButtonProps) => {
   return (
     <>
       <button
-        className={classNames(styles.button, styles['button-' + size])}
+        className={classNames(
+          styles.button,
+          styles['button-' + size],
+          darkMode
+        )}
         {...args}>
         {content && content.length < 4 ? content?.split('').join(' ') : content}
       </button>
     </>
   );
-};
-
-Button.defaultProps = {
-  size: 'small',
-  content: 'button',
 };
 
 // import { useEffect } from 'react';

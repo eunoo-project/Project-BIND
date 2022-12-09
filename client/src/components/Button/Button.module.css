@@ -1,8 +1,8 @@
 .button {
   @apply border rounded border-gray-border;
-  @apply shadow-light dark:shadow-dark;
+  @apply shadow-light;
   @apply font-bold tracking-wide;
-  @apply bg-white dark:bg-black;
+  @apply bg-white;
   @apply transition-all;
   @apply outline-none ease-in active:bg-gray-border;
 }

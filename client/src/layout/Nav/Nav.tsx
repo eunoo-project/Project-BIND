@@ -4,18 +4,24 @@ import Plus from '@/../public/assets/plus.svg';
 import Write from '@/../public/assets/write.svg';
 import Logout from '@/../public/assets/logout.svg';
 import styles from './Nav.module.css';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
-import { userState } from '@/states';
+import { userState, themeState } from '@/states';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 export const Nav = () => {
   const [user, setUser] = useRecoilState(userState);
+  const [theme, setTheme] = useRecoilState(themeState);
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   // const router = useRouter();
+
+  useEffect(() => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    isDark && document.documentElement.classList.add('dark');
+    setTheme(isDark);
+  }, []);
 
   const handleNavOpen = useCallback(() => {
     setIsOpen(!isOpen);
@@ -31,7 +37,7 @@ export const Nav = () => {
 
   const handleTheme = () => {
     document.documentElement.classList.toggle('dark');
-    setIsDark(!isDark);
+    setTheme(!theme);
   };
 
   const haldleWrite = () => {
@@ -66,7 +72,7 @@ export const Nav = () => {
         aria-label="테마 변경"
         className={classNames(!isOpen && 'hidden', styles.theme)}
         onClick={handleTheme}>
-        {isDark ? <Sun /> : <Moon />}
+        {theme ? <Sun /> : <Moon />}
       </button>
     </nav>
   );
