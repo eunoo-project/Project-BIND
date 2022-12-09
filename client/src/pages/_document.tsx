@@ -7,7 +7,7 @@ export default function Document() {
         <meta name="description" content="친구와 BIND로 묶이다!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body>
+      <body className="dark:bg-black">
         <Main />
         <NextScript />
       </body>
