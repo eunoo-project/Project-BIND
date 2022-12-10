@@ -11,13 +11,13 @@ export const isValidate = ({
 }: isValidateProps) => {
   if (confirmPassword !== undefined) {
     return !(
-      /^[a-z][a-z0-9_]{4,11}$/.test(userId) &&
+      /^[a-z0-9_]{5,12}$/.test(userId) &&
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(password) &&
       password === confirmPassword
     );
   }
   return !(
-    /^[a-z][a-z0-9_]{4,11}$/.test(userId) &&
+    /^[a-z0-9_]{5,12}$/.test(userId) &&
     /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(password)
   );
 };
