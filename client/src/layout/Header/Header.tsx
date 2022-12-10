@@ -26,8 +26,9 @@ export const Header = () => {
 
     if (searchInput.value.trim() !== '') {
       setIsOpen(true);
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${searchInput.value}`
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/search`,
+        { searchText: searchInput.value }
       );
       setSearchResult(data);
     } else setIsOpen(false);

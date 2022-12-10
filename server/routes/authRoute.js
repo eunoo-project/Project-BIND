@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken');
 const { uploadImage, deleteImage } = require('../utils/multer');
 const { User } = require('../models');
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
+router.post('/search', async (req, res) => {
+  const { searchText } = req.body;
 
-  const users = await User.find({ userId: { $regex: id } });
+  const users = await User.find({ userId: { $regex: searchText } });
 
   const response = users.map(({ _id, userId, imageURL }) => ({
     _id,
