@@ -27,7 +27,7 @@ export const Header = () => {
     if (searchInput.value.trim() !== '') {
       setIsOpen(true);
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/post`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${searchInput.value}`
       );
       setSearchResult(data);
     } else setIsOpen(false);
@@ -58,11 +58,13 @@ export const Header = () => {
             <output className={styles.output}>
               {searchResult.length !== 0 ? (
                 <ul className={styles.list}>
-                  <li>
-                    <Link href="asdf">
-                      <UserProfile size="small" id="eunoo" />
-                    </Link>
-                  </li>
+                  {searchResult.map(({ _id, userId, imageURL }) => (
+                    <li key={_id}>
+                      <Link href={`/${_id}`}>
+                        <UserProfile size="small" id={userId} img={imageURL} />
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               ) : (
                 <p className={styles.empty}>검색 결과가 없습니다.</p>
