@@ -52,14 +52,14 @@ export const RegisterForm = () => {
         type="text"
         name="userId"
         label="아이디"
-        placeholder="아이디를 입력하세요."
+        placeholder="영소문자, 숫자 조합 5~12자"
         onChange={handleChange}
       />
       <FormInput
         type="password"
         name="password"
         label="비밀번호"
-        placeholder="비밀번호를 입력하세요."
+        placeholder="영문, 숫자, 특수문자 포함 8~20자"
         onChange={handleChange}
       />
       <FormInput
