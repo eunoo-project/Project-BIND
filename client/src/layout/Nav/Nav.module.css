@@ -2,6 +2,7 @@
   @apply fixed bottom-6 right-6;
   @apply w-[60px] h-[60px];
   @apply bg-gray-bg;
+  @apply overflow-hidden;
   @apply rounded-full border-2 border-gray-border;
   @apply transition-all;
 }
