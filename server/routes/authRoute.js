@@ -4,6 +4,20 @@ const jwt = require('jsonwebtoken');
 const { uploadImage, deleteImage } = require('../utils/multer');
 const { User } = require('../models');
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const users = await User.find({ userId: { $regex: id } });
+
+  const response = users.map(({ _id, userId, imageURL }) => ({
+    _id,
+    userId,
+    imageURL,
+  }));
+
+  res.send(response);
+});
+
 // register -----------------------------------------------------
 router.post('/register', async (req, res) => {
   // id 중복 체크
