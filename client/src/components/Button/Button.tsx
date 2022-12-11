@@ -4,19 +4,21 @@ import classNames from 'classnames';
 interface ButtonProps {
   size?: 'small' | 'big' | 'long';
   content?: string;
-  onClick?: () => void;
+  onClick?: (e: React.SyntheticEvent) => void;
+  className?: string;
   [key: string]: unknown;
 }
 
 const darkMode = 'dark:bg-black dark:shadow-dark';
 
-export const Button = ({ size, content, ...args }: ButtonProps) => {
+export const Button = ({ size, content, className, ...args }: ButtonProps) => {
   return (
     <>
       <button
         className={classNames(
           styles.button,
           styles['button-' + size],
+          className,
           darkMode
         )}
         {...args}>
