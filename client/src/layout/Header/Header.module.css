@@ -1,5 +1,6 @@
 .header {
-  @apply h-16;
+  @apply w-screen h-16;
+  @apply fixed;
   @apply shadow-light;
 }
 
