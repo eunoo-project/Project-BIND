@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 export const userState = atom({
   key: 'userState',
-  default: {},
+  default: { _id: '', userId: '' },
 });
 
 export const themeState = atom({
