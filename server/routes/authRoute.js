@@ -72,7 +72,7 @@ router.post('/signin', async (req, res) => {
 
   const response = { _id: user._id, userId: user.userId };
 
-  res.status(200).send({ response });
+  res.status(200).send(response);
 });
 
 // logout -----------------------------------------------------
