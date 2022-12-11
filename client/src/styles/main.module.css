@@ -1,0 +1,3 @@
+.main {
+  @apply h-screen md:max-w-[768px] m-auto;
+}

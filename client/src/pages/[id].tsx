@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '@/styles/main.module.css';
 import { Nav, Header } from '@/layout';
 
-const Main = () => {
+const User = () => {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default User;
