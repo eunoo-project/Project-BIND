@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const { uploadImage, deleteImage } = require('../utils/multer');
 const { User } = require('../models');
 
-router.post('/search', async (req, res) => {
-  const { searchText } = req.body;
+router.get('/search', async (req, res) => {
+  const { searchText } = req.query;
 
   const users = await User.find({ userId: { $regex: searchText } });
 
@@ -72,7 +72,7 @@ router.post('/signin', async (req, res) => {
 
   const response = { _id: user._id, userId: user.userId };
 
-  res.status(200).send({ response });
+  res.status(200).send(response);
 });
 
 // logout -----------------------------------------------------

@@ -11,7 +11,7 @@
 }
 
 .form {
-  @apply flex flex-col;
+  @apply relative flex flex-col;
 }
 
 .label {
@@ -29,10 +29,11 @@
 }
 
 .output {
+  @apply absolute top-8;
   @apply w-40 md:w-[500px] max-h-36;
   @apply overflow-auto;
   @apply text-black;
-  @apply -mt-1 p-1 bg-white;
+  @apply mt-0.5 bg-white;
   @apply border-2 border-gray-border rounded;
 }
 
@@ -58,9 +59,15 @@
 
 .list li {
   @apply flex items-center;
-  @apply p-2;
+  @apply p-1;
   @apply transition-all active:bg-gray-border;
   @apply border-b-2 last:border-none;
+}
+
+.list a {
+  @apply w-full h-full;
+  @apply p-1;
+  @apply flex items-center;
 }
 
 .list span {

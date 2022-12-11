@@ -1,11 +1,16 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
+const queryclient = new QueryClient();
 
 const withBackground = StoryFn => (
   <RecoilRoot>
-    <div className="dark:bg-black dark:text-white">
-      <StoryFn />
-    </div>
+    <QueryClientProvider client={queryclient}>
+      <div className="dark:bg-black dark:text-white">
+        <StoryFn />
+      </div>
+    </QueryClientProvider>
   </RecoilRoot>
 );
 
