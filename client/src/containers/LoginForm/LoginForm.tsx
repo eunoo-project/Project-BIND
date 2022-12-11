@@ -4,11 +4,15 @@ import styles from './LoginForm.module.css';
 import { isValidate } from '@/utils';
 import { Button, FormInput } from '@/components';
 import Link from 'next/link';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import { userState } from '@/states';
+import { signin } from '@/api/user';
+import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
   const [, setUser] = useRecoilState(userState);
+  const router = useRouter();
+  const mutation = useMutation(signin);
 
   const [inputs, setInputs] = useState({
     userId: '',
@@ -25,20 +29,25 @@ export const LoginForm = () => {
     [inputs]
   );
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const {
       userId: { value: id },
       password: { value: pass },
     } = e.target as HTMLFormElement;
 
-    const { data: response } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/user/signin`,
-      { userId: id, password: pass }
+    mutation.mutate(
+      { userId: id, password: pass },
+      {
+        onSuccess(data) {
+          if (typeof data === 'string') setErrorMessage(data);
+          else {
+            setUser(data);
+            router.push('/');
+          }
+        },
+      }
     );
-
-    if (typeof response === 'string') setErrorMessage(response);
-    else setUser(response.response);
   };
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
