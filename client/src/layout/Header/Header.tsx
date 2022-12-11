@@ -10,28 +10,34 @@ import { themeState } from '@/states';
 import { useRecoilState } from 'recoil';
 import { UserProfile } from '@/components';
 import { useState } from 'react';
-import axios from 'axios';
+import { useSearchUsers } from '../../hooks';
 
 const darkHeader = 'dark:shadow-dark';
 
+interface searchUsersProps {
+  _id: string;
+  userId: string;
+  imageURL: string;
+}
+
 export const Header = () => {
   const [isDark] = useRecoilState(themeState);
-  const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const { data: searchUsers } = useSearchUsers(inputValue);
 
-  const handleChange = async (e: React.SyntheticEvent) => {
+  const handleChange = (e: React.SyntheticEvent) => {
     const searchInput = e.target as HTMLInputElement;
     setInputValue(searchInput.value.trim());
 
-    if (searchInput.value.trim() !== '') {
-      setIsOpen(true);
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/search`,
-        { searchText: searchInput.value }
-      );
-      setSearchResult(data);
-    } else setIsOpen(false);
+    if (searchInput.value.trim() !== '') setIsOpen(true);
+    else setIsOpen(false);
+  };
+
+  const handleClick = (e: React.SyntheticEvent) => {
+    const target = e.nativeEvent.target as HTMLElement;
+    setInputValue(target.querySelector('span')?.textContent as string);
+    setIsOpen(false);
   };
 
   return (
@@ -41,7 +47,7 @@ export const Header = () => {
         <Link href="/" aria-label="로고">
           {isDark ? <LogoWhite /> : <LogoBlack />}
         </Link>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={e => e.preventDefault()}>
           <label className={styles.label}>
             <Search aria-label="검색" />
             <input
@@ -57,15 +63,21 @@ export const Header = () => {
           </label>
           {isOpen && (
             <output className={styles.output}>
-              {searchResult.length !== 0 ? (
+              {searchUsers?.length > 0 ? (
                 <ul className={styles.list}>
-                  {searchResult.map(({ _id, userId, imageURL }) => (
-                    <li key={_id}>
-                      <Link href={`/${_id}`}>
-                        <UserProfile size="small" id={userId} img={imageURL} />
-                      </Link>
-                    </li>
-                  ))}
+                  {searchUsers.map(
+                    ({ _id, userId, imageURL }: searchUsersProps) => (
+                      <li key={_id}>
+                        <Link href={`/${_id}`} onClick={handleClick}>
+                          <UserProfile
+                            size="small"
+                            id={userId}
+                            img={imageURL}
+                          />
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               ) : (
                 <p className={styles.empty}>검색 결과가 없습니다.</p>
