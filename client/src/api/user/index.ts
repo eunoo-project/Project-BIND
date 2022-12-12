@@ -1,11 +1,17 @@
-import axios from 'axios';
+import axios from '@/utils/axios';
+
+export const auth = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`
+  );
+  return data;
+};
 
 export const signin = async (user: { userId: string; password: string }) => {
   const { data } = await axios.post(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/user/signin`,
     user
   );
-
   return data;
 };
 
