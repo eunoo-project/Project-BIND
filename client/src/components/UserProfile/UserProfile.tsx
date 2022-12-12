@@ -7,18 +7,30 @@ import Image from 'next/image';
 interface UserProfileProps {
   size: 'big' | 'small';
   id: string;
-  img?: string;
+  imageURL?: string;
   // 해당 유저 페이지로 이동하는 함수
   [key: string]: unknown;
 }
 
 //prettier-ignore
-export const UserProfile = ({ id, size, img, ...props }: UserProfileProps) => (
+export const UserProfile = ({ id, size, imageURL, ...props }: UserProfileProps) => (
   <div className={classNames(styles.container, size === 'big' && 'flex-col') } {...props}>
     {size === 'big' ? (
-      img ?  '이미지' : <BigProfile  />
+    imageURL ?  <Image
+      src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${imageURL}`}
+      alt=""
+      width={24}
+      height={24}
+      unoptimized={true}
+    />  : <BigProfile  />
     ) : (
-      img ?  '이미지' : <SmallProfile  />
+      imageURL ?  <Image
+          src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${imageURL}`}
+          alt=""
+          width={68}
+          height={68}
+          unoptimized={true}
+        /> :  <SmallProfile  />
     )}
     <span className={styles.id}>{id}</span>
   </div>
