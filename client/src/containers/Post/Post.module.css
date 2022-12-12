@@ -1,0 +1,16 @@
+.conatiner {
+  @apply list-none;
+}
+
+.figure {
+  @apply relative w-full pb-[100%];
+}
+
+.figure img {
+  @apply absolute w-full h-full;
+}
+
+.like {
+  @apply flex;
+  @apply py-[6px] px-3;
+}

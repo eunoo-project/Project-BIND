@@ -3,6 +3,25 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { uploadImage, deleteImage } = require('../utils/multer');
 const { User } = require('../models');
+const { verifyToken } = require('../utils/verifyToken');
+
+router.get('/auth', async (req, res) => {
+  try {
+    const { _id } = verifyToken(req.cookies.accessToken);
+
+    const authUser = await User.findOne(_id);
+
+    if (!authUser) return res.send(false);
+
+    res.send({
+      _id: authUser._id,
+      userId: authUser.userId,
+      imageURL: authUser.imageURL,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 router.get('/search', async (req, res) => {
   const { searchText } = req.query;
@@ -46,7 +65,7 @@ router.post('/register', async (req, res) => {
 
     const response = { _id: savedUser._id, userId: savedUser.userId };
 
-    res.status(200).send({ response });
+    res.status(200).send(response);
   } catch (err) {
     res.status(400).send({ err, message: 'error' });
   }
@@ -70,7 +89,11 @@ router.post('/signin', async (req, res) => {
     httpOnly: true,
   });
 
-  const response = { _id: user._id, userId: user.userId };
+  const response = {
+    _id: user._id,
+    userId: user.userId,
+    imageURL: user.imageURL,
+  };
 
   res.status(200).send(response);
 });

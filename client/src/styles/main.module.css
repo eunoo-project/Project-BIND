@@ -1,3 +1,8 @@
 .main {
   @apply h-screen md:max-w-[768px] m-auto;
 }
+
+.container {
+  @apply max-w-[500px];
+  @apply m-auto;
+}

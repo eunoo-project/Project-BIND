@@ -1,5 +1,9 @@
-import { getSearchUsers } from '@/api/user';
 import { useQuery } from '@tanstack/react-query';
+import { getSearchUsers, auth } from '@/api/user';
+
+export const useAuth = () => {
+  return useQuery(['posts'], auth);
+};
 
 // 검색된 유저 반환 훅
 export const useSearchUsers = (searchText: string) => {

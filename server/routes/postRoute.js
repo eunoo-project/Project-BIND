@@ -4,14 +4,30 @@ const { User, Post } = require('../models');
 const { verifyToken } = require('../utils/verifyToken');
 
 router.get('/', async (req, res) => {
-  const { _id } = verifyToken(req.cookies.accessToken);
-  const { binding } = await User.findOne({ _id });
+  try {
+    const { _id } = verifyToken(req.cookies.accessToken);
 
-  const posts = await Post.find({ author: { $in: [_id, ...binding] } }).sort({
-    publishDate: -1,
-  });
+    const { binding } = await User.findOne({ _id });
 
-  res.send(new Date(posts[0].publishDate).toLocaleString());
+    const posts = await Post.find({ author: { $in: [_id, ...binding] } })
+      .populate('author')
+      .sort({
+        publishDate: -1,
+      });
+
+    const response = posts.map(post => ({
+      ...post._doc,
+      author: {
+        _id: post.author._id,
+        userId: post.author.userId,
+        posts: post.author.posts,
+        imageURL: post.author.imageURL,
+      },
+    }));
+    res.send(response);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.post('/', uploadImage.single('post'), async (req, res) => {

@@ -1,0 +1,14 @@
+.likeInfo {
+  @apply flex gap-[6px];
+  @apply px-3 py-[6px];
+  @apply font-bold;
+}
+
+.description {
+  @apply px-3 py-1;
+}
+
+.date {
+  @apply px-3 py-1;
+  @apply text-xs text-gray-bg;
+}
