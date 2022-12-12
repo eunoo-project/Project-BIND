@@ -15,10 +15,16 @@ export const Nav = () => {
   const [user, setUser] = useRecoilState(userState);
   const [theme, setTheme] = useRecoilState(themeState);
   const [isOpen, setIsOpen] = useState(false);
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    !localStorage.getItem('BIND_THEME') &&
+      localStorage.setItem(
+        'BIND_THEME',
+        `${window.matchMedia('(prefers-color-scheme: dark)').matches}`
+      );
+    const isDark = localStorage.getItem('BIND_THEME') === 'true';
+
     isDark && document.documentElement.classList.add('dark');
     setTheme(isDark);
   }, []);
@@ -28,15 +34,16 @@ export const Nav = () => {
   }, [isOpen]);
 
   const handleLogout = async () => {
-    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/logout`, {
-      ...user,
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/signout`, {
+      user,
     });
-    setUser({});
-    // router.push('/login');
+    setUser(null);
+    router.push('/login');
   };
 
   const handleTheme = () => {
     document.documentElement.classList.toggle('dark');
+    localStorage.setItem('BIND_THEME', `${!theme}`);
     setTheme(!theme);
   };
 
