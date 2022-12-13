@@ -12,7 +12,7 @@ import { UserProfile } from '@/components';
 import { useState } from 'react';
 import { useSearchUsers } from '../../hooks';
 
-const darkHeader = 'dark:shadow-dark';
+const darkHeader = 'dark:shadow-dark dark:bg-black';
 
 interface searchUsersProps {
   _id: string;
