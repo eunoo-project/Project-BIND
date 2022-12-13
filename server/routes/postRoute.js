@@ -20,7 +20,6 @@ router.get('/', async (req, res) => {
       author: {
         _id: post.author._id,
         userId: post.author.userId,
-        posts: post.author.posts,
         imageURL: post.author.imageURL,
       },
     }));
@@ -49,11 +48,28 @@ router.post('/', uploadImage.single('post'), async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
   const { id } = req.params;
+  const { _id: userId } = verifyToken(req.cookies.accessToken);
 
-  await Post.findOneAndUpdate(
-    { _id: id },
-    { description: req.body.description }
-  );
+  if (req.body.description) {
+    await Post.findOneAndUpdate(
+      { _id: id },
+      { description: req.body.description, editDate: new Date() }
+    );
+  }
+
+  if (req.body.like === 'add') {
+    await Post.findOneAndUpdate(
+      { _id: id },
+      { $push: { like: userId }, $inc: { likeCnt: 1 } }
+    );
+  }
+
+  if (req.body.like === 'remove') {
+    await Post.findOneAndUpdate(
+      { _id: id },
+      { $pull: { like: userId }, $inc: { likeCnt: -1 } }
+    );
+  }
 
   res.end();
 });
@@ -71,30 +87,6 @@ router.delete('/:id', async (req, res) => {
   });
 
   post.delete();
-
-  res.end();
-});
-
-router.patch('/like/:id', async (req, res) => {
-  const { id } = req.params;
-  const { _id: userId } = verifyToken(req.cookies.accessToken);
-
-  await Post.findOneAndUpdate(
-    { _id: id },
-    { $push: { like: userId }, $inc: { likeCnt: req.body.value } }
-  );
-
-  res.end();
-});
-
-router.patch('/unlike/:id', async (req, res) => {
-  const { id } = req.params;
-  const { _id: userId } = verifyToken(req.cookies.accessToken);
-
-  await Post.findOneAndUpdate(
-    { _id: id },
-    { $pull: { like: userId }, $inc: { likeCnt: req.body.value } }
-  );
 
   res.end();
 });
