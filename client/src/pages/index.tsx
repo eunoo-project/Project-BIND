@@ -2,11 +2,13 @@ import Head from 'next/head';
 import styles from '@/styles/main.module.css';
 import { Nav, Header } from '@/layout';
 import { Post } from '@/containers';
-import { usePosts } from '@/hooks/chat';
+import { usePosts } from '@/hooks';
 import { postProps } from '@/containers';
+import { Authorization } from '@/components';
 
 const Main = () => {
   const { data: posts } = usePosts();
+
   return (
     <>
       <Head>
