@@ -1,5 +1,10 @@
 .main {
-  @apply h-screen md:max-w-[768px] m-auto;
+  @apply h-screen md:max-w-[768px] mx-auto pt-[68px] pb-4;
+  @apply overflow-auto;
+}
+
+.main::-webkit-scrollbar {
+  @apply hidden;
 }
 
 .container {

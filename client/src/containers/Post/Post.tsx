@@ -3,18 +3,21 @@ import { PostInfo } from '@/components';
 import { PostNav } from '@/containers';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userState } from '@/states';
+import { updatePost, deletePost } from '@/api/post';
 import Image from 'next/image';
+import { dateToString } from '@/utils';
 
 export interface postProps {
   _id: string;
   author: {
     _id: string;
     userId: string;
-    posts: [string];
     imageURL: string;
   };
   imageURL: string;
+  like: [string];
   likeCnt: string;
   publishDate: Date;
   description: string;
@@ -24,18 +27,73 @@ export interface postProps {
 export const Post = ({ post }: { post: postProps }) => {
   const [user] = useRecoilState(userState);
   const [editmode, setEditMode] = useState(false);
+  const [editValue, setEditvalue] = useState(post.description);
+  const update = useMutation(updatePost);
+  const remove = useMutation(deletePost);
+  const queryClient = useQueryClient();
 
   const handleEditMode = () => setEditMode(!editmode);
 
-  console.log(user);
+  const handleChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLTextAreaElement;
+    setEditvalue(target.value);
+  };
+
+  const handleSubmit = () => {
+    if (!editValue.trim()) {
+      setEditMode(false);
+      return;
+    }
+    update.mutate(
+      { postId: post._id, payload: { description: editValue } },
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(['posts']);
+          setEditMode(false);
+          setEditvalue(editValue);
+        },
+      }
+    );
+  };
+
+  const handleLike = () => {
+    update.mutate(
+      {
+        postId: post._id,
+        payload: {
+          like: post.like.includes(user._id as string) ? 'remove' : 'add',
+        },
+      },
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(['posts']);
+        },
+      }
+    );
+  };
+
+  const handleRemove = () => {
+    remove.mutate(
+      {
+        postId: post._id,
+      },
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(['posts']);
+        },
+      }
+    );
+  };
 
   return (
     <li className={styles.conatiner}>
       <PostNav
         author={post.author}
         editMode={editmode}
-        myPost={post.author._id === user?._id}
+        myPost={post.author._id === user._id}
         handleEditMode={handleEditMode}
+        handleSubmit={handleSubmit}
+        handleRemove={handleRemove}
       />
       <figure className={styles.figure}>
         <Image
@@ -44,10 +102,26 @@ export const Post = ({ post }: { post: postProps }) => {
           width={0}
           height={0}
           unoptimized={true}
+          priority
         />
         <figcaption className="sr-only">{`${post.author.userId} 님의 게시물`}</figcaption>
       </figure>
-      {!editmode ? <PostInfo /> : <textarea />}
+      {!editmode ? (
+        <PostInfo
+          isLikePost={post.like.includes(user._id as string)}
+          likeCnt={post.likeCnt}
+          description={post.description}
+          publishDate={dateToString(post.publishDate)}
+          handleLike={handleLike}
+        />
+      ) : (
+        <textarea
+          className={styles.textarea}
+          value={editValue}
+          placeholder="포스트의 내용을 입력하세요."
+          onChange={handleChange}
+        />
+      )}
     </li>
   );
 };

@@ -25,7 +25,7 @@ export const PostInfo = ({
         </button>
         <span>좋아요 {likeCnt}개</span>
       </div>
-      <p className={styles.description}>{description}</p>
+      <pre className={styles.description}>{description}</pre>
       <p className={styles.date}>{publishDate}</p>
     </>
   );
