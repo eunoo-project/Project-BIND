@@ -6,3 +6,4 @@ export * from './UserInfo/UserInfo';
 export * from './UserProfile/UserProfile';
 export * from './FormInput/FormInput';
 export * from './PostInfo/PostInfo';
+export * from './Authorization/Authorization';
