@@ -37,7 +37,7 @@ export const Nav = () => {
     await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/signout`, {
       user,
     });
-    setUser(null);
+    setUser({ _id: null, userId: null, imageURL: null });
     router.push('/login');
   };
 
@@ -62,13 +62,6 @@ export const Nav = () => {
       </button>
       <button
         type="button"
-        className={classNames(!isOpen && 'hidden', styles.logout)}
-        aria-label="로그아웃"
-        onClick={handleLogout}>
-        <Logout />
-      </button>
-      <button
-        type="button"
         aria-label="게시글 작성"
         className={classNames(!isOpen && 'hidden', styles.write)}
         onClick={haldleWrite}>
@@ -80,6 +73,13 @@ export const Nav = () => {
         className={classNames(!isOpen && 'hidden', styles.theme)}
         onClick={handleTheme}>
         {theme ? <Sun /> : <Moon />}
+      </button>
+      <button
+        type="button"
+        className={classNames(!isOpen && 'hidden', styles.logout)}
+        aria-label="로그아웃"
+        onClick={handleLogout}>
+        <Logout />
       </button>
     </nav>
   );
