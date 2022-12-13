@@ -13,6 +13,8 @@ interface PostNavProps {
   myPost: boolean;
   editMode: boolean;
   handleEditMode: () => void;
+  handleSubmit: () => void;
+  handleRemove: () => void;
 }
 
 export const PostNav = ({
@@ -20,6 +22,8 @@ export const PostNav = ({
   editMode,
   myPost,
   handleEditMode,
+  handleSubmit,
+  handleRemove,
 }: PostNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,15 +50,30 @@ export const PostNav = ({
           {!editMode ? (
             <>
               <Button size="small" content="수정" onClick={handleEditMode} />
-              <Button size="small" content="삭제" className="text-rose-600" />
+              <Button
+                size="small"
+                content="삭제"
+                className="text-rose-600"
+                onClick={handleRemove}
+              />
             </>
           ) : (
             <>
-              <Button size="small" content="완료" />
+              <Button
+                size="small"
+                content="완료"
+                onClick={() => {
+                  handleSubmit();
+                  setIsOpen(false);
+                }}
+              />
               <Button
                 size="small"
                 content="취소"
-                onClick={handleEditMode}
+                onClick={() => {
+                  handleEditMode();
+                  setIsOpen(false);
+                }}
                 className="text-rose-600"
               />
             </>
