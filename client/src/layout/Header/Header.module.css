@@ -1,6 +1,7 @@
 .header {
   @apply w-screen h-16;
-  @apply fixed;
+  @apply fixed top-0 z-20;
+  @apply bg-white;
   @apply shadow-light;
 }
 
@@ -22,7 +23,7 @@
   @apply h-8 absolute top-[8px] left-3 z-10;
 }
 .search {
-  @apply w-40 h-8 md:w-[500px];
+  @apply w-40 h-8 md:w-[500px] md:ml-1;
   @apply pl-8;
   @apply text-black bg-white;
   @apply border-2 border-gray-border rounded;
@@ -75,6 +76,6 @@
 }
 
 .empty {
-  @apply p-2 text-center;
+  @apply px-2 py-7 text-center;
   @apply font-semibold text-gray-fill text-sm;
 }

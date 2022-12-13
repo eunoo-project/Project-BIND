@@ -4,6 +4,7 @@
 
 .figure {
   @apply relative w-full pb-[100%];
+  @apply border border-l-gray-fill;
 }
 
 .figure img {
@@ -13,4 +14,11 @@
 .like {
   @apply flex;
   @apply py-[6px] px-3;
+}
+
+.textarea {
+  @apply w-full min-h-[85px];
+  @apply mt-[1px] p-3;
+  @apply bg-inherit;
+  @apply border-2 rounded resize-none;
 }

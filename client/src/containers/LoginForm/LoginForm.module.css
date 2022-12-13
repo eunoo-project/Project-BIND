@@ -12,6 +12,6 @@
   @apply mt-5 mb-5;
 }
 
-.link {
+.container a {
   @apply inline-block mt-7 text-blue-400 underline cursor-pointer;
 }
