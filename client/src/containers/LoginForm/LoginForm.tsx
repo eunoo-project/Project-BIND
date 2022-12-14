@@ -6,7 +6,7 @@ import { Button, FormInput } from '@/components';
 import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { userState } from '@/states';
-import { signin } from '@/api/user';
+import { signin } from '@/api';
 import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
