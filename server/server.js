@@ -48,9 +48,9 @@ mongoose
 
 // rest API routes
 
-const { authRoute, chatRoute, postRoute } = require('./routes');
+const { userRoute, chatRoute, postRoute } = require('./routes');
 
-app.use('/user', authRoute);
+app.use('/user', userRoute);
 app.use('/post', postRoute);
 app.use('/chat', chatRoute);
 
