@@ -5,7 +5,7 @@
   @apply bg-white;
   @apply transition-all;
   @apply focus:border-2 focus:border-blue-600;
-  @apply outline-none ease-in active:bg-gray-border;
+  @apply outline-none active:bg-gray-border;
 }
 
 .button-small {
