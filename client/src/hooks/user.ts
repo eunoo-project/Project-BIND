@@ -2,7 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getSearchUsers, getUser, auth } from '@/api';
 
 export const useAuth = () => {
-  return useQuery(['auth'], auth);
+  return useQuery(['auth'], auth, {
+    retry: false,
+  });
 };
 
 export const useUser = (id: string) => {
