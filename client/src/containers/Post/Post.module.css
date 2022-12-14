@@ -4,7 +4,6 @@
 
 .figure {
   @apply relative w-full pb-[100%];
-  @apply border border-l-gray-fill;
 }
 
 .figure img {

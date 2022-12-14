@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userState } from '@/states';
-import { updatePost, deletePost } from '@/api/post';
+import { updatePost, deletePost } from '@/api';
 import Image from 'next/image';
 import { dateToString } from '@/utils';
 
@@ -14,7 +14,7 @@ export interface postProps {
   author: {
     _id: string;
     userId: string;
-    imageURL: string;
+    imageURL?: string;
   };
   imageURL: string;
   like: [string];
@@ -28,7 +28,7 @@ export const Post = ({ post }: { post: postProps }) => {
   const [user] = useRecoilState(userState);
   const [editmode, setEditMode] = useState(false);
   const [editValue, setEditvalue] = useState(post.description);
-  const update = useMutation(updatePost);
+  const patch = useMutation(updatePost);
   const remove = useMutation(deletePost);
   const queryClient = useQueryClient();
 
@@ -44,11 +44,11 @@ export const Post = ({ post }: { post: postProps }) => {
       setEditMode(false);
       return;
     }
-    update.mutate(
+    patch.mutate(
       { postId: post._id, payload: { description: editValue } },
       {
         onSuccess() {
-          queryClient.invalidateQueries(['posts']);
+          queryClient.invalidateQueries();
           setEditMode(false);
           setEditvalue(editValue);
         },
@@ -57,7 +57,7 @@ export const Post = ({ post }: { post: postProps }) => {
   };
 
   const handleLike = () => {
-    update.mutate(
+    patch.mutate(
       {
         postId: post._id,
         payload: {
@@ -66,7 +66,7 @@ export const Post = ({ post }: { post: postProps }) => {
       },
       {
         onSuccess() {
-          queryClient.invalidateQueries(['posts']);
+          queryClient.invalidateQueries();
         },
       }
     );
@@ -79,7 +79,7 @@ export const Post = ({ post }: { post: postProps }) => {
       },
       {
         onSuccess() {
-          queryClient.invalidateQueries(['posts']);
+          queryClient.invalidateQueries();
         },
       }
     );
