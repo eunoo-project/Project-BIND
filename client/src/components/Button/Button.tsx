@@ -6,15 +6,23 @@ interface ButtonProps {
   content?: string;
   onClick?: (e: React.SyntheticEvent) => void;
   className?: string;
+  as?: keyof JSX.IntrinsicElements;
   [key: string]: unknown;
 }
 
 const darkMode = 'dark:bg-black dark:shadow-dark';
 
-export const Button = ({ size, content, className, ...args }: ButtonProps) => {
+export const Button = ({
+  size,
+  content,
+  className,
+  as,
+  ...args
+}: ButtonProps) => {
+  const TagName = as || 'button';
   return (
     <>
-      <button
+      <TagName
         className={classNames(
           styles.button,
           styles['button-' + size],
@@ -23,7 +31,7 @@ export const Button = ({ size, content, className, ...args }: ButtonProps) => {
         )}
         {...args}>
         {content && content.length < 4 ? content?.split('').join(' ') : content}
-      </button>
+      </TagName>
     </>
   );
 };
