@@ -6,17 +6,19 @@ import { userState } from '@/states';
 
 export const Authorization = ({ children }: { children: ReactNode }) => {
   const { data, isLoading } = useAuth();
-  const router = useRouter();
   const [, setUser] = useRecoilState(userState);
+  const router = useRouter();
 
   useEffect(() => {
-    console.log(data);
-    if (router && !data) router.push('/login');
-  }, [router]);
+    if (!isLoading && !data) {
+      router.push('/login');
+    }
+    if (!isLoading && data) {
+      setUser(data);
+    }
+  }, [isLoading, data]);
 
-  if (isLoading || !data) return <></>;
-
-  setUser(data);
+  if (isLoading) return <>로딩중....</>;
 
   return <>{children}</>;
 };

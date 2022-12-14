@@ -6,10 +6,10 @@ import Search from '@/../public/assets/search.svg';
 import styles from './Header.module.css';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { themeState } from '@/states';
+import { userState, themeState } from '@/states';
 import { useRecoilState } from 'recoil';
 import { UserProfile } from '@/components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchUsers } from '../../hooks';
 
 const darkHeader = 'dark:shadow-dark dark:bg-black';
@@ -17,17 +17,32 @@ const darkHeader = 'dark:shadow-dark dark:bg-black';
 interface searchUsersProps {
   _id: string;
   userId: string;
-  imageURL: string;
+  imageURL?: string;
 }
 
 export const Header = () => {
+  const [user] = useRecoilState(userState);
   const [isDark] = useRecoilState(themeState);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const { data: searchUsers } = useSearchUsers(inputValue);
 
+  useEffect(() => {
+    document.body.addEventListener('click', (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!isOpen && target.matches('input')) return;
+      setIsOpen(false);
+    });
+    return document.body.removeEventListener('click', (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!isOpen && target.matches('input')) return;
+      setIsOpen(false);
+    });
+  }, []);
+
   const handleChange = (e: React.SyntheticEvent) => {
     const searchInput = e.target as HTMLInputElement;
+
     setInputValue(searchInput.value.trim());
 
     if (searchInput.value.trim() !== '') setIsOpen(true);
@@ -44,7 +59,7 @@ export const Header = () => {
     <header className={classNames(styles.header, darkHeader)}>
       <div className={styles.container}>
         <h1 className="sr-only">친구와 묶이다! BIND</h1>
-        <Link href="/" aria-label="로고">
+        <Link href="/" aria-label="메인페이지">
           {isDark ? <LogoWhite /> : <LogoBlack />}
         </Link>
         <form className={styles.form} onSubmit={e => e.preventDefault()}>
@@ -72,7 +87,7 @@ export const Header = () => {
                           <UserProfile
                             size="small"
                             id={userId}
-                            img={imageURL}
+                            imageURL={imageURL}
                           />
                         </Link>
                       </li>
@@ -85,10 +100,10 @@ export const Header = () => {
             </output>
           )}
         </form>
-        <Link href="/chat" aria-label="채팅">
+        <Link href="/chat" aria-label="채팅페이지">
           <Chat />
         </Link>
-        <Link href="/user/[]" aria-label="마이페이지">
+        <Link href={`/${user._id}`} aria-label="마이페이지">
           <User />
         </Link>
       </div>

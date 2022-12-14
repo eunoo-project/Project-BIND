@@ -7,11 +7,9 @@ const { verifyToken } = require('../utils/verifyToken');
 
 router.get('/auth', async (req, res) => {
   try {
-    const { _id } = verifyToken(req.cookies.accessToken);
+    const { userId } = verifyToken(req.cookies.accessToken);
 
-    const authUser = await User.findOne(_id);
-
-    if (!authUser) return res.send(false);
+    const authUser = await User.findOne({ userId });
 
     res.send({
       _id: authUser._id,
@@ -20,13 +18,18 @@ router.get('/auth', async (req, res) => {
     });
   } catch (e) {
     console.log(e);
+    res.send(false);
   }
 });
 
 router.get('/search', async (req, res) => {
   const { searchText } = req.query;
 
-  const users = await User.find({ userId: { $regex: searchText } });
+  const escapedTest = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const regExp = new RegExp(escapedTest);
+
+  const users = await User.find({ userId: { $regex: regExp } });
 
   const response = users.map(({ _id, userId, imageURL }) => ({
     _id,
@@ -56,7 +59,10 @@ router.post('/register', async (req, res) => {
   // 저장 및 토큰 생성 후 응답
   try {
     const savedUser = await user.save();
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    const token = jwt.sign(
+      { _id: user._id, userId: user.userId },
+      process.env.TOKEN_SECRET
+    );
 
     res.cookie('accessToken', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
@@ -82,7 +88,10 @@ router.post('/signin', async (req, res) => {
   if (!validPassword) return res.send('비밀번호를 확인해주세요.');
 
   // 토큰 생성
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  const token = jwt.sign(
+    { _id: user._id, userId: user.userId },
+    process.env.TOKEN_SECRET
+  );
 
   res.cookie('accessToken', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
@@ -107,38 +116,58 @@ router.post('/signout', (req, res) => {
 // userInfo -----------------------------------------------------
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
+  const { _id } = verifyToken(req.cookies.accessToken);
 
-  const user = await User.findOne({ _id: id });
+  const user = await User.findOne({ _id: id }).populate('posts');
 
-  res.send(user);
+  const response = {
+    userInfo: {
+      _id: user._id,
+      userId: user.userId,
+      imageURL: user.imageURL,
+      postCnt: user.posts.length,
+      binderCnt: user.binder.length,
+      bindingCnt: user.binding.length,
+      isBinding: user.binder.includes(_id),
+    },
+    posts: user.posts
+      .map(post => ({
+        ...post._doc,
+        author: { _id: user._id, userId: user.userId, imageURL: user.imageURL },
+      }))
+      .sort((a, b) => b.publishDate - a.publishDate),
+  };
+
+  res.send(response);
 });
 
 // bind -----------------------------------------------------
-router.post('/bind', async (req, res) => {
-  const { me, opponent } = req.body;
+router.patch('/bind/:id', async (req, res) => {
+  const { id: opponent } = req.params;
+  const { _id: me } = verifyToken(req.cookies.accessToken);
 
-  await User.findOneAndUpdate({ _id: me }, { $push: { binding: opponent } });
-  await User.findOneAndUpdate({ _id: opponent }, { $push: { binder: me } });
+  const { type } = req.body;
 
-  res.end();
-});
+  if (type === 'bind') {
+    await User.findOneAndUpdate({ _id: me }, { $push: { binding: opponent } });
+    await User.findOneAndUpdate({ _id: opponent }, { $push: { binder: me } });
+  }
 
-// unbind -----------------------------------------------------
-router.post('/unbind', async (req, res) => {
-  const { me, opponent } = req.body;
-
-  await User.findOneAndUpdate({ _id: me }, { $pull: { binding: opponent } });
-  await User.findOneAndUpdate({ _id: opponent }, { $pull: { binder: me } });
+  if (type === 'unbind') {
+    await User.findOneAndUpdate({ _id: me }, { $pull: { binding: opponent } });
+    await User.findOneAndUpdate({ _id: opponent }, { $pull: { binder: me } });
+  }
 
   res.end();
 });
 
 // 프로필 이미지 변경 -----------------------------------------------------
-router.post('/profile', uploadImage.single('image'), async (req, res) => {
+router.patch('/profile', uploadImage.single('profile'), async (req, res) => {
+  const { _id } = verifyToken(req.cookies.accessToken);
   const imageURL = req.file.path;
   if (!imageURL) return res.status(400).send('이미지가 존재하지 않습니다.');
 
-  const user = await User.findOne({ userId: req.body.userId });
+  const user = await User.findOne({ _id });
 
   if (user.imageURL) deleteImage(user.imageURL);
 

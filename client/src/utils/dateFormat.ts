@@ -6,6 +6,11 @@ export const dateToString = (publishDate: Date) => {
   if (yesterday > date)
     return date
       .toLocaleDateString()
-      .replace(/\./g, (target, i) => (i === 4 ? '년' : i === 8 ? '월' : '일'));
-  return date.toLocaleTimeString().substring(0, 7);
+      .replace(/\./g, (_, i) => (i === 4 ? '년' : i === 8 ? '월' : '일'));
+  return date
+    .toLocaleTimeString()
+    .substring(0, date.toLocaleTimeString().lastIndexOf(':'))
+    .replace(/[0-9]+/g, target => {
+      return Number(target) < 10 ? '0' + target : target;
+    });
 };

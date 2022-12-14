@@ -10,20 +10,27 @@ const Main = () => {
   const { data: posts } = usePosts();
 
   return (
-    <>
+    <Authorization>
       <Head>
         <title>BIND</title>
       </Head>
       <Header />
       <Nav />
       <main className={styles.main}>
-        <ul className={styles.container}>
-          {posts?.map((post: postProps) => (
-            <Post key={post._id} post={post} />
-          ))}
-        </ul>
+        {posts?.length > 0 ? (
+          <ul className={styles.container}>
+            {posts.map((post: postProps) => (
+              <Post key={post._id} post={post} />
+            ))}
+          </ul>
+        ) : (
+          <div className={styles.empty + ' h-full'}>
+            <p>BIND</p>
+            <p>포스트가 없습니다...</p>
+          </div>
+        )}
       </main>
-    </>
+    </Authorization>
   );
 };
 

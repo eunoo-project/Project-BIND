@@ -34,6 +34,7 @@ router.post('/', uploadImage.single('post'), async (req, res) => {
     author: req.body.author,
     description: req.body.description,
     imageURL: req.file.path,
+    publishDate: new Date(),
   });
 
   const user = await User.findOne({ _id: req.body.author });

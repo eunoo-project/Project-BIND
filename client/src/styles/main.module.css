@@ -11,3 +11,16 @@
   @apply max-w-[500px];
   @apply m-auto;
 }
+
+.empty {
+  @apply flex flex-col justify-center items-center gap-2;
+  @apply text-gray-bg;
+}
+
+.empty p:first-child {
+  @apply text-4xl font-semibold;
+}
+
+.empty p {
+  @apply text-xl;
+}

@@ -2,10 +2,10 @@
   @apply border rounded border-gray-border;
   @apply shadow-light;
   @apply font-bold tracking-wide;
+  @apply cursor-pointer;
   @apply bg-white;
   @apply transition-all;
-  @apply focus:border-2 focus:border-blue-600;
-  @apply outline-none ease-in active:bg-gray-border;
+  @apply active:bg-gray-border;
 }
 
 .button-small {
@@ -20,7 +20,7 @@
 
 .button-long {
   @apply w-[175px] h-6;
-  @apply text-sm;
+  @apply text-center text-sm;
 }
 
 .button:disabled {

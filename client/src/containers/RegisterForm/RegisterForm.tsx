@@ -6,7 +6,7 @@ import { Button, FormInput } from '@/components';
 import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { userState } from '@/states';
-import { register } from '@/api/user';
+import { register } from '@/api';
 import { useRouter } from 'next/router';
 
 export const RegisterForm = () => {
