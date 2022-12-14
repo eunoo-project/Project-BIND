@@ -25,7 +25,11 @@ router.get('/auth', async (req, res) => {
 router.get('/search', async (req, res) => {
   const { searchText } = req.query;
 
-  const users = await User.find({ userId: { $regex: searchText } });
+  const escapedTest = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const regExp = new RegExp(escapedTest);
+
+  const users = await User.find({ userId: { $regex: regExp } });
 
   const response = users.map(({ _id, userId, imageURL }) => ({
     _id,
@@ -158,11 +162,12 @@ router.patch('/bind/:id', async (req, res) => {
 });
 
 // 프로필 이미지 변경 -----------------------------------------------------
-router.post('/profile', uploadImage.single('image'), async (req, res) => {
+router.patch('/profile', uploadImage.single('profile'), async (req, res) => {
+  const { _id } = verifyToken(req.cookies.accessToken);
   const imageURL = req.file.path;
   if (!imageURL) return res.status(400).send('이미지가 존재하지 않습니다.');
 
-  const user = await User.findOne({ userId: req.body.userId });
+  const user = await User.findOne({ _id });
 
   if (user.imageURL) deleteImage(user.imageURL);
 
