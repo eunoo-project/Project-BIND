@@ -12,25 +12,41 @@ interface UserProfileProps {
   [key: string]: unknown;
 }
 
-//prettier-ignore
-export const UserProfile = ({ id, size, imageURL, ...props }: UserProfileProps) => (
-  <div className={classNames(styles.container, size === 'big' && 'flex-col') } {...props}>
+export const UserProfile = ({
+  id,
+  size,
+  imageURL,
+  ...props
+}: UserProfileProps) => (
+  <div
+    className={classNames(styles.container, size === 'big' && 'flex-col')}
+    {...props}>
     {size === 'big' ? (
-    imageURL ?  <Image
-      src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${imageURL}`}
-      alt=""
-      width={24}
-      height={24}
-      unoptimized={true}
-    />  : <BigProfile  />
-    ) : (
-      imageURL ?  <Image
+      imageURL ? (
+        <div className={styles.bigBox}>
+          <Image
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${imageURL}`}
+            alt=""
+            width={68}
+            height={68}
+            unoptimized={true}
+          />
+        </div>
+      ) : (
+        <BigProfile />
+      )
+    ) : imageURL ? (
+      <div className={styles.smallBox}>
+        <Image
           src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${imageURL}`}
           alt=""
-          width={68}
-          height={68}
+          width={24}
+          height={24}
           unoptimized={true}
-        /> :  <SmallProfile  />
+        />
+      </div>
+    ) : (
+      <SmallProfile />
     )}
     <span className={styles.id}>{id}</span>
   </div>
