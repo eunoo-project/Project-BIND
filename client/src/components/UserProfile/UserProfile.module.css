@@ -8,12 +8,12 @@
 
 .smallBox {
   @apply w-6 h-6;
-  @apply border border-black;
+  @apply border;
   @apply overflow-hidden rounded-full;
 }
 
 .bigBox {
   @apply w-[68px] h-[68px];
-  @apply border border-black;
+  @apply border;
   @apply overflow-hidden rounded-full;
 }
