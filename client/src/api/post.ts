@@ -27,3 +27,11 @@ export const deletePost = async ({ postId }: { postId: string }) => {
   );
   return data;
 };
+
+export const addPost = async (form: FormData) => {
+  const { data } = await axios.post(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/post`,
+    form
+  );
+  return data;
+};
