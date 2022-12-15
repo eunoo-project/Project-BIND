@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const sharp = require('sharp');
+const fs = require('fs');
 const { uploadImage, deleteImage } = require('../utils/multer');
 const { User, Post } = require('../models');
 const { verifyToken } = require('../utils/verifyToken');
@@ -30,14 +32,27 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', uploadImage.single('post'), async (req, res) => {
+  const { _id: userId } = verifyToken(req.cookies.accessToken);
+
+  sharp(req.file.path) // 압축할 이미지 경로
+    .resize({ width: 500 }) // 비율을 유지하며 가로 크기 줄이기
+    .withMetadata() // 이미지의 exif데이터 유지
+    .toBuffer((err, buffer) => {
+      if (err) throw err;
+      // 압축된 파일 새로 저장(덮어씌우기)
+      fs.writeFile(req.file.path, buffer, err => {
+        if (err) throw err;
+      });
+    });
+
   const post = new Post({
-    author: req.body.author,
+    author: userId,
     description: req.body.description,
     imageURL: req.file.path,
     publishDate: new Date(),
   });
 
-  const user = await User.findOne({ _id: req.body.author });
+  const user = await User.findOne({ _id: userId });
   await user.updateOne({
     posts: [post._id, ...user.posts],
   });
