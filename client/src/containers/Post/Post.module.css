@@ -3,11 +3,11 @@
 }
 
 .figure {
-  @apply relative w-full pb-[100%];
+  @apply relative w-auto pb-[100%] overflow-hidden bg-gray-100 -z-10;
 }
 
 .figure img {
-  @apply absolute w-full h-full;
+  @apply absolute w-full h-auto top-1/2 -translate-y-1/2 -z-50;
 }
 
 .like {

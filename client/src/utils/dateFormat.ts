@@ -10,7 +10,7 @@ export const dateToString = (publishDate: Date) => {
   return date
     .toLocaleTimeString()
     .substring(0, date.toLocaleTimeString().lastIndexOf(':'))
-    .replace(/[0-9]+/g, target => {
+    .replace(/[1-9]{,2}/g, target => {
       return Number(target) < 10 ? '0' + target : target;
     });
 };

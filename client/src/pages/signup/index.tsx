@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '@/styles/signup.module.css';
 import { RegisterForm } from '@/containers';
-import Logo from '@/../public/assets/logo-big.svg';
+import { Logo } from '@/components';
 
 const Signup = () => (
   <>

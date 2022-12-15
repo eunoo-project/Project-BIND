@@ -1,5 +1,4 @@
-import Heart from '@/../public/assets/heart.svg';
-import HeartFill from '@/../public/assets/heart-fill.svg';
+import { Heart, HeartFill } from '@/components';
 import styles from './PostInfo.module.css';
 
 interface PostInfoProps {

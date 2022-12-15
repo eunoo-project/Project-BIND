@@ -1,4 +1,4 @@
-import More from '@/../public/assets/more.svg';
+import { More } from '@/components';
 import styles from './PostNav.module.css';
 import Link from 'next/link';
 import { UserProfile, Button } from '@/components';

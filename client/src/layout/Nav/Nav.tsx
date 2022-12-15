@@ -1,8 +1,4 @@
-import Sun from '@/../public/assets/sun.svg';
-import Moon from '@/../public/assets/moon.svg';
-import Plus from '@/../public/assets/plus.svg';
-import Write from '@/../public/assets/write.svg';
-import Logout from '@/../public/assets/logout.svg';
+import { Sun, Moon, Plus, Write, Logout } from '@/components';
 import styles from './Nav.module.css';
 import { useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
@@ -48,7 +44,7 @@ export const Nav = () => {
   };
 
   const haldleWrite = () => {
-    // router.push('/write');
+    router.push('/write');
   };
 
   return (
