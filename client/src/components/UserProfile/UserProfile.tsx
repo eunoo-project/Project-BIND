@@ -1,5 +1,4 @@
-import SmallProfile from '@/../public/assets/profile-small.svg';
-import BigProfile from '@/../public/assets/profile-big.svg';
+import { BigProfile, SmallProfile } from '@/components';
 import styles from './UserProfile.module.css';
 import classNames from 'classnames';
 import Image from 'next/image';

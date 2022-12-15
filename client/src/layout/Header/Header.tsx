@@ -1,8 +1,4 @@
-import LogoBlack from '@/../public/assets/logo-black.svg';
-import LogoWhite from '@/../public/assets/logo-white.svg';
-import Chat from '@/../public/assets/chat.svg';
-import User from '@/../public/assets/user.svg';
-import Search from '@/../public/assets/search.svg';
+import { LogoBlack, LogoWhite, Chat, User, Search } from '@/components';
 import styles from './Header.module.css';
 import classNames from 'classnames';
 import Link from 'next/link';
