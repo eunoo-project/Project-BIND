@@ -7,7 +7,7 @@ import { postProps } from '@/containers';
 import { Authorization } from '@/components';
 
 const Main = () => {
-  const { data: posts } = usePosts();
+  const { data: posts, isLoading } = usePosts();
 
   return (
     <Authorization>
@@ -17,7 +17,9 @@ const Main = () => {
       <Header />
       <Nav />
       <main className={styles.main}>
-        {posts?.length > 0 ? (
+        {isLoading ? (
+          <></>
+        ) : posts?.length > 0 ? (
           <ul className={styles.container}>
             {posts.map((post: postProps) => (
               <Post key={post._id} post={post} />
