@@ -96,7 +96,7 @@ export const Header = () => {
             </output>
           )}
         </form>
-        <Link href="/chat" aria-label="채팅페이지">
+        <Link href="/" aria-label="채팅페이지">
           <Chat />
         </Link>
         <Link href={`/${user._id}`} aria-label="마이페이지">

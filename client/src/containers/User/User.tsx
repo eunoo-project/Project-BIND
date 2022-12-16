@@ -80,7 +80,7 @@ export const User = ({ userInfo }: { userInfo: UserProps }) => {
             <Button
               size="small"
               content="채팅"
-              onClick={() => router.push('/chat')}
+              // onClick={() => router.push('/chat')}
             />
           </div>
         ) : (
