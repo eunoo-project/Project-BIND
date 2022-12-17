@@ -70,7 +70,7 @@ export const User = ({ userInfo }: { userInfo: UserProps }) => {
               <Button
                 size="small"
                 content="바인딩"
-                className="transition-all bg-gradient text-black"
+                className="transition-all bg-gradient-to-r from-black to-black text-white dark:from-white dark:to-white dark:text-black"
                 onClick={handleBind}
               />
             ) : (
@@ -80,7 +80,7 @@ export const User = ({ userInfo }: { userInfo: UserProps }) => {
             <Button
               size="small"
               content="채팅"
-              onClick={() => router.push('/chat')}
+              // onClick={() => router.push('/chat')}
             />
           </div>
         ) : (
