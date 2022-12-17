@@ -1,18 +1,25 @@
 import styles from '@/styles/write.module.css';
-import { Authorization, Button, PlusBig } from '@/components';
+import { Button, PlusBig } from '@/components';
 import { Header } from '@/layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { QueryClient, useMutation } from '@tanstack/react-query';
 import { addPost } from '@/api';
+import { GetServerSidePropsContext } from 'next';
+import axios from '@/utils/axios';
+import { Auth, userState } from '@/states';
+import { useRecoilState } from 'recoil';
 
-const Write = () => {
+const Write = ({ auth }: { auth: Auth }) => {
   const [imageURL, setImageURL] = useState('');
   const [value, setValue] = useState('');
   const router = useRouter();
   const mutation = useMutation(addPost);
   const queryClient = new QueryClient();
+  const [, setUser] = useRecoilState(userState);
+
+  useEffect(() => setUser(auth));
 
   const handleInput = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -50,7 +57,7 @@ const Write = () => {
   };
 
   return (
-    <Authorization>
+    <>
       <Header />
       <main className={styles.main}>
         <form className={styles.container} onSubmit={handleSubmit}>
@@ -93,8 +100,30 @@ const Write = () => {
           </div>
         </form>
       </main>
-    </Authorization>
+    </>
   );
 };
 
 export default Write;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { cookie } = context.req.headers;
+
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
+    { headers: { Cookie: cookie } }
+  );
+
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { auth: { ...data } },
+  };
+}
