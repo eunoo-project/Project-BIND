@@ -11,6 +11,7 @@ const safesitelist = [
   'http://localhost:3000',
   'http://localhost:6006',
   'https://project-bind-g2rnfnxv3-project-bind.vercel.app',
+  'https://project-bind.vercel.app',
 ];
 const corsOptions = {
   origin(origin, callback) {
@@ -37,6 +38,7 @@ const io = new Server(server, {
     origin: [
       'http://localhost:3000',
       'https://project-bind-g2rnfnxv3-project-bind.vercel.app',
+      'https://project-bind.vercel.app',
     ],
     methods: ['GET', 'POST'],
     credentials: true,
