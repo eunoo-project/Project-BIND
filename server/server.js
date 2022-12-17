@@ -38,6 +38,7 @@ const io = new Server(server, {
 });
 
 // DB 연결
+mongoose.set('strictQuery', false);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'), {
@@ -63,6 +64,6 @@ io.on('connection', socket => {
 
 // 서버 구동
 
-server.listen(process.env.PORT || 5500, () => {
-  console.log(`app listening on ${process.env.PORT || 5500}`);
+server.listen(process.env.PORT || 8080, () => {
+  console.log(`app listening on ${process.env.PORT || 8080}`);
 });
