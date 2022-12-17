@@ -7,7 +7,11 @@ require('dotenv').config();
 const app = express();
 
 // cors 옵션 설정
-const safesitelist = ['http://localhost:3000', 'http://localhost:6006'];
+const safesitelist = [
+  'http://localhost:3000',
+  'http://localhost:6006',
+  'https://project-bind-g2rnfnxv3-project-bind.vercel.app',
+];
 const corsOptions = {
   origin(origin, callback) {
     const issafesitelisted = safesitelist.indexOf(origin) !== -1;
@@ -30,7 +34,10 @@ const { Server } = require('socket.io');
 
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://localhost:3000',
+      'https://project-bind-g2rnfnxv3-project-bind.vercel.app',
+    ],
     methods: ['GET', 'POST'],
     credentials: true,
   },
