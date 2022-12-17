@@ -2,8 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "build": "netlify-lambda build express",
     "start": "node server.js",
     "test": "nodemon server"
   },
@@ -20,7 +22,6 @@
     "mongoose": "^6.7.3",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
-    "netlify-lambda": "^2.0.15",
     "pug": "2.0.0-beta11",
     "sharp": "^0.31.2",
     "socket.io": "^4.5.4",
