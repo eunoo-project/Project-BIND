@@ -1,0 +1,81 @@
+.header {
+  @apply w-screen h-16;
+  @apply fixed top-0 z-20;
+  @apply bg-white;
+  @apply shadow-light;
+}
+
+.container {
+  @apply flex justify-between;
+  @apply m-auto;
+  @apply max-w-[375px] md:max-w-[768px] py-4 px-3;
+}
+
+.form {
+  @apply relative flex flex-col;
+}
+
+.label {
+  @apply relative;
+}
+
+.label svg {
+  @apply absolute top-[8px] left-3 z-10 md:left-4;
+}
+.search {
+  @apply w-40 h-8 md:w-[500px] md:ml-[6px];
+  @apply pl-8;
+  @apply text-black bg-white;
+  @apply border-2 border-gray-border rounded;
+}
+
+.output {
+  @apply absolute top-8;
+  @apply w-40 md:w-[500px] max-h-36 md:ml-[6px];
+  @apply overflow-auto;
+  @apply text-black;
+  @apply mt-0.5 bg-white;
+  @apply border-2 border-gray-border rounded;
+}
+
+.output svg {
+  @apply fill-black;
+}
+
+.output::-webkit-scrollbar {
+  @apply w-[6px];
+}
+
+.output::-webkit-scrollbar-thumb {
+  @apply rounded-xl bg-gray-fill;
+}
+
+.output::-webkit-scrollbar-track {
+  @apply rounded-xl bg-gray-border;
+}
+
+.list {
+  @apply flex flex-col justify-center;
+}
+
+.list li {
+  @apply flex items-center;
+  @apply p-1;
+  @apply transition-all active:bg-gray-border;
+  @apply border-b-2 last:border-none;
+}
+
+.list a {
+  @apply w-full h-full;
+  @apply p-1;
+  @apply flex items-center;
+}
+
+.list span {
+  @apply cursor-default;
+}
+
+.empty {
+  @apply px-2 py-7 text-center;
+  @apply font-semibold text-gray-fill text-sm;
+}

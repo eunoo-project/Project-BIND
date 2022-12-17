@@ -1,0 +1,21 @@
+.container {
+  @apply flex flex-col justify-center items-center;
+}
+
+.container div:first-child {
+  @apply mb-10;
+}
+
+.container div:nth-child(2) {
+  @apply mb-10;
+}
+
+.output {
+  @apply h-5;
+  @apply text-red;
+  @apply mt-5 mb-5;
+}
+
+.container a {
+  @apply inline-block mt-7 text-blue-400 underline cursor-pointer;
+}

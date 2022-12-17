@@ -1,0 +1,23 @@
+.conatiner {
+  @apply list-none;
+}
+
+.figure {
+  @apply relative w-auto pb-[100%] overflow-hidden bg-gray-100 -z-10;
+}
+
+.figure img {
+  @apply absolute w-full h-auto top-1/2 -translate-y-1/2 -z-50;
+}
+
+.like {
+  @apply flex;
+  @apply py-[6px] px-3;
+}
+
+.textarea {
+  @apply w-full min-h-[85px];
+  @apply mt-[1px] p-3;
+  @apply bg-inherit;
+  @apply border-2 rounded resize-none;
+}

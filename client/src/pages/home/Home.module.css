@@ -1,6 +1,0 @@
-.container {
-  @apply text-3xl font-bold;
-  @apply absolute;
-  @apply inline-block;
-  @apply w-full h-16 text-center pt-4 pb-4 shadow-md;
-}

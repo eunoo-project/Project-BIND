@@ -1,0 +1,13 @@
+.conatiner {
+  @apply max-w-[375px] sm:max-w-[500px] mx-auto;
+  @apply py-8 px-12;
+  @apply flex justify-between sm:justify-around;
+}
+
+.wrapper {
+  @apply flex flex-col gap-[24px];
+}
+
+.buttons {
+  @apply flex justify-between;
+}

@@ -1,20 +1,29 @@
+.button {
+  @apply border rounded border-gray-border;
+  @apply shadow-light;
+  @apply font-bold tracking-wide;
+  @apply cursor-pointer;
+  @apply bg-white;
+  @apply transition-all;
+  @apply active:bg-gray-border;
+}
+
 .button-small {
   @apply w-[84px] h-6;
-  @apply border rounded border-gray-border;
-  @apply shadow-light dark:shadow-dark;
-  @apply text-sm font-bold tracking-wide;
+  @apply text-sm;
 }
 
 .button-big {
   @apply w-[153px] h-8;
-  @apply border rounded border-gray-border;
-  @apply shadow-light dark:shadow-dark;
-  @apply text-lg font-bold tracking-wide;
+  @apply text-xl;
 }
 
 .button-long {
   @apply w-[175px] h-6;
-  @apply border rounded border-gray-border;
-  @apply shadow-light dark:shadow-dark;
-  @apply text-sm font-bold tracking-wide;
+  @apply text-center text-sm;
+}
+
+.button:disabled {
+  @apply text-gray-600 bg-gray-bg opacity-50;
+  @apply cursor-not-allowed;
 }

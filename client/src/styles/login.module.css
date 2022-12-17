@@ -1,0 +1,16 @@
+.main {
+  @apply h-screen bg-gradient;
+  @apply flex justify-center items-center;
+}
+
+.container {
+  @apply flex flex-col items-center gap-12;
+}
+
+.logo {
+  @apply inline-block;
+}
+
+.description {
+  @apply text-black font-semibold;
+}

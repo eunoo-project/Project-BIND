@@ -1,32 +1,46 @@
 import styles from './Button.module.css';
+import classNames from 'classnames';
 
 interface ButtonProps {
   size?: 'small' | 'big' | 'long';
   content?: string;
-  onClick?: () => void;
+  onClick?: (e: React.SyntheticEvent) => void;
+  className?: string;
+  as?: keyof JSX.IntrinsicElements;
   [key: string]: unknown;
 }
 
-export const Button = ({ size, content, ...args }: ButtonProps) => {
-  console.log(content);
+const darkMode = 'dark:bg-black dark:shadow-dark';
+
+export const Button = ({
+  size,
+  content,
+  className,
+  as,
+  ...args
+}: ButtonProps) => {
+  const TagName = as || 'button';
   return (
     <>
-      <button className={styles['button-' + size]} {...args}>
+      <TagName
+        className={classNames(
+          styles.button,
+          styles['button-' + size],
+          className,
+          darkMode
+        )}
+        {...args}>
         {content && content.length < 4 ? content?.split('').join(' ') : content}
-      </button>
+      </TagName>
     </>
   );
-};
-
-Button.defaultProps = {
-  size: 'small',
-  contnet: 'button',
 };
 
 // import { useEffect } from 'react';
 // import axios from 'axios';
 // import { io } from 'socket.io-client';
 // import content from '../../../globals.d';
+// import { classNames } from 'classnames';
 // useEffect((): any => {
 // const fetch = async () => {
 //   const { data } = await axios.get('http://localhost:5500/');

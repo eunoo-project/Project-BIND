@@ -1,0 +1,19 @@
+.container {
+  @apply inline-flex items-center gap-2;
+}
+
+.id {
+  @apply font-semibold;
+}
+
+.smallBox {
+  @apply w-6 h-6;
+  @apply border;
+  @apply overflow-hidden rounded-full;
+}
+
+.bigBox {
+  @apply w-[68px] h-[68px];
+  @apply border;
+  @apply overflow-hidden rounded-full;
+}

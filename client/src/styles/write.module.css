@@ -1,0 +1,43 @@
+.main {
+  @apply h-screen md:max-w-[768px] mx-auto pt-[68px] pb-4;
+  @apply overflow-auto;
+}
+
+.main::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.container {
+  @apply max-w-[500px] h-full;
+  @apply mx-auto;
+  @apply flex flex-col items-center justify-center;
+}
+
+.imageArea {
+  @apply relative w-full pb-[100%] overflow-hidden;
+}
+
+.imageArea svg {
+  @apply absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2;
+}
+
+.label {
+  @apply absolute w-full h-full bg-gray-100;
+}
+
+.preview {
+  @apply absolute w-full h-auto top-1/2 -translate-y-1/2 z-20;
+}
+
+.description {
+  @apply w-full h-[100px] resize-none;
+  @apply p-3;
+  @apply border-2;
+  @apply text-black;
+}
+
+.buttonArea {
+  @apply flex justify-center gap-6;
+  @apply w-full;
+  @apply mt-7;
+}

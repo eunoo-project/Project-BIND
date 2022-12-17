@@ -1,0 +1,26 @@
+.main {
+  @apply h-screen md:max-w-[768px] mx-auto pt-[68px] pb-4;
+  @apply overflow-auto;
+}
+
+.main::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.container {
+  @apply max-w-[500px];
+  @apply m-auto;
+}
+
+.empty {
+  @apply flex flex-col justify-center items-center gap-2;
+  @apply text-gray-bg;
+}
+
+.empty p:first-child {
+  @apply text-4xl font-semibold;
+}
+
+.empty p {
+  @apply text-xl;
+}
