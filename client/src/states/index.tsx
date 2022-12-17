@@ -1,11 +1,17 @@
 import { atom } from 'recoil';
 
-export const userState = atom({
+export interface Auth {
+  _id: string | null;
+  userId: string | null;
+  imageURL?: string | null;
+}
+
+export const userState = atom<Auth>({
   key: 'userState',
   default: {
-    _id: null as string | null,
-    userId: null as string | null,
-    imageURL: null as string | null,
+    _id: null,
+    userId: null,
+    imageURL: null,
   },
 });
 
