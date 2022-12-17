@@ -1,5 +1,5 @@
 .main {
-  @apply h-screen bg-gradient;
+  @apply h-screen bg-gradient-to-b from-[#c9c9c9] to-[#ffffff];
   @apply flex justify-center items-center;
 }
 
