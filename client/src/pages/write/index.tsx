@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { QueryClient, useMutation } from '@tanstack/react-query';
 import { addPost } from '@/api';
 import { GetServerSidePropsContext } from 'next';
-import axios from '@/utils/axios';
 import { Auth, userState } from '@/states';
 import { useRecoilState } from 'recoil';
 
@@ -109,10 +108,23 @@ export default Write;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { cookie } = context.req.headers;
 
-  const { data } = await axios.get(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
-    { headers: { Cookie: cookie } }
+    {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        cookie: cookie as string,
+      },
+    }
   );
+  const data = await response.json();
+
+  // const { data } = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
+  //   { headers: { Cookie: cookie } }
+  // );
 
   if (!data) {
     return {
