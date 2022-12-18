@@ -69,8 +69,8 @@ router.post('/register', async (req, res) => {
     res.cookie('accessToken', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
       httpOnly: true,
-      sameSite: process.env.NODE_ENV !== 'production' ? 'lax' : 'none',
-      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      secure: true,
     });
 
     const response = { _id: savedUser._id, userId: savedUser.userId };
@@ -100,8 +100,8 @@ router.post('/signin', async (req, res) => {
   res.cookie('accessToken', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
     httpOnly: true,
-    sameSite: process.env.NODE_ENV !== 'production' ? 'lax' : 'none',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+    secure: true,
   });
 
   const response = {
@@ -115,7 +115,11 @@ router.post('/signin', async (req, res) => {
 
 // logout -----------------------------------------------------
 router.post('/signout', (req, res) => {
-  res.clearCookie('accessToken');
+  res.clearCookie('accessToken', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  });
   res.end();
 });
 
