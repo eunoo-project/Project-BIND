@@ -5,7 +5,6 @@ import { Post } from '@/containers';
 import { usePosts } from '@/hooks';
 import { postProps } from '@/containers';
 import { GetServerSidePropsContext } from 'next';
-import axios from '@/utils/axios';
 import { useRecoilState } from 'recoil';
 import { userState } from '@/states';
 import { useEffect } from 'react';
@@ -14,6 +13,16 @@ import { Auth } from '@/states/index';
 const Main = ({ auth }: { auth: Auth }) => {
   const { data: posts, isLoading } = usePosts();
   const [, setUser] = useRecoilState(userState);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { data } = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`
+  //     );
+  //     console.log(data);
+  //   };
+  //   fetchData();
+  // });
 
   useEffect(() => setUser(auth));
 
@@ -49,10 +58,29 @@ export default Main;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { cookie } = context.req.headers;
 
-  const { data } = await axios.get(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
-    { headers: { Cookie: cookie } }
+    {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        cookie: cookie as string,
+      },
+    }
   );
+  const data = await response.json();
+
+  // const { data } = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
+  //   {
+  //     headers: {
+  //       Cookie: cookie,
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //       Accept: '*/*',
+  //     },
+  //   }
+  // );
 
   if (!data) {
     return {
