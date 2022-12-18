@@ -155,4 +155,6 @@ yarn-error.log*
 # Vercel
 .vercel
 
+app.yaml
+
 # End of https://www.toptal.com/developers/gitignore/api/nextjs
