@@ -69,6 +69,10 @@ router.post('/register', async (req, res) => {
     res.cookie('accessToken', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
       httpOnly: true,
+      domain:
+        process.env.NODE_ENV !== 'production'
+          ? 'localhost'
+          : 'https://project-bind.vercel.app',
     });
 
     const response = { _id: savedUser._id, userId: savedUser.userId };
@@ -98,6 +102,10 @@ router.post('/signin', async (req, res) => {
   res.cookie('accessToken', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
     httpOnly: true,
+    domain:
+      process.env.NODE_ENV !== 'production'
+        ? 'localhost'
+        : 'https://project-bind.vercel.app',
   });
 
   const response = {
