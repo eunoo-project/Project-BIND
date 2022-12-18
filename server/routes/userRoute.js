@@ -73,6 +73,8 @@ router.post('/register', async (req, res) => {
         process.env.NODE_ENV !== 'production'
           ? 'localhost'
           : 'https://project-bind.vercel.app',
+      sameSite: process.env.NODE_ENV !== 'production' ? 'lax' : 'none',
+      secure: process.env.NODE_ENV === 'production',
     });
 
     const response = { _id: savedUser._id, userId: savedUser.userId };
@@ -106,6 +108,8 @@ router.post('/signin', async (req, res) => {
       process.env.NODE_ENV !== 'production'
         ? 'localhost'
         : 'https://project-bind.vercel.app',
+    sameSite: process.env.NODE_ENV !== 'production' ? 'lax' : 'none',
+    secure: process.env.NODE_ENV === 'production',
   });
 
   const response = {
