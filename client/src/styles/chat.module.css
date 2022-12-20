@@ -1,0 +1,27 @@
+.main {
+  @apply h-screen md:max-w-[768px] mx-auto pt-[68px];
+  @apply overflow-auto;
+  @apply md:border;
+}
+
+.main_room {
+  @apply h-[calc(100vh-57px)] md:max-w-[768px] mx-auto pt-[68px];
+  @apply md:border;
+}
+
+.main::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.container::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.container {
+  @apply w-full h-full;
+  @apply overflow-auto;
+}
+
+.date {
+  @apply inline-block font-semibold py-1 px-3 rounded-2xl border border-gray-border my-3 ml-[50%] -translate-x-1/2;
+}
