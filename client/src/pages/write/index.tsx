@@ -121,11 +121,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   );
   const data = await response.json();
 
-  // const { data } = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
-  //   { headers: { Cookie: cookie } }
-  // );
-
   if (!data) {
     return {
       redirect: {
