@@ -15,6 +15,8 @@ import Plus from '@/../public/assets/plus.svg';
 import Write from '@/../public/assets/write.svg';
 import Logout from '@/../public/assets/logout.svg';
 import Logo from '@/../public/assets/logo-big.svg';
+import Exit from '@/../public/assets/exit.svg';
+import Send from '@/../public/assets/send.svg';
 
 export {
   LogoBlack,
@@ -34,4 +36,6 @@ export {
   Write,
   Logout,
   Logo,
+  Exit,
+  Send,
 };
