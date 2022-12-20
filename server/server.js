@@ -43,7 +43,6 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
     credentials: true,
   },
-  path: '/chatting',
 });
 
 // DB 연결
@@ -65,12 +64,9 @@ app.use('/post', postRoute);
 app.use('/chat', chatRoute);
 
 // socket.io 구성
+const socket = require('./socket');
 
-io.on('connection', socket => {
-  console.log('hi', socket.id);
-  // io.emit('event_name', msg);
-});
-
+socket(io);
 // 서버 구동
 
 server.listen(process.env.PORT || 8080, () => {
