@@ -13,7 +13,7 @@ export const Message = ({ message, time, isMyMessage }: MessageProps) => {
     <li
       className={classNames(
         styles.container,
-        !isMyMessage && 'flex-row-reverse'
+        isMyMessage && 'flex-row-reverse'
       )}>
       <p className={isMyMessage ? styles.myMessage : styles.othersMessage}>
         {message}

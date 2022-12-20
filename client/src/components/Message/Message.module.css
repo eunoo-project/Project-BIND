@@ -5,14 +5,14 @@
 }
 
 .myMessage {
-  @apply max-w-[13rem] min-h-[36px];
+  @apply max-w-[13rem] min-h-[36px] md:max-w-[450px];
   @apply flex items-center;
   @apply px-3 py-1;
   @apply border border-gray-border rounded;
 }
 
 .othersMessage {
-  @apply max-w-[13rem] min-h-[36px];
+  @apply max-w-[13rem] min-h-[36px] md:max-w-[450px];
   @apply flex items-center;
   @apply px-3 py-1;
   @apply text-white bg-gray-bg;
