@@ -2,10 +2,12 @@ import { RoomList } from '@/containers';
 import { Header, Nav } from '@/layout';
 import Head from 'next/head';
 import styles from '@/styles/chat.module.css';
-import { Auth, userState } from '@/states/index';
+// import { Authorization } from '@/components';
 import { GetServerSidePropsContext } from 'next';
 import { useRecoilState } from 'recoil';
+import { userState } from '@/states';
 import { useEffect } from 'react';
+import { Auth } from '@/states/index';
 
 const ChatRooms = ({ auth }: { auth: Auth }) => {
   const [, setUser] = useRecoilState(userState);

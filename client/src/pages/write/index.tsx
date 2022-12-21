@@ -1,14 +1,17 @@
 import styles from '@/styles/write.module.css';
 import { Button, PlusBig } from '@/components';
 import { Header } from '@/layout';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { QueryClient, useMutation } from '@tanstack/react-query';
 import { addPost } from '@/api';
+// import { Authorization } from '@/components';
 import { GetServerSidePropsContext } from 'next';
-import { Auth, userState } from '@/states';
 import { useRecoilState } from 'recoil';
+import { userState } from '@/states';
+import { useEffect } from 'react';
+import { Auth } from '@/states/index';
 
 const Write = ({ auth }: { auth: Auth }) => {
   const [imageURL, setImageURL] = useState('');
@@ -16,6 +19,7 @@ const Write = ({ auth }: { auth: Auth }) => {
   const router = useRouter();
   const mutation = useMutation(addPost);
   const queryClient = new QueryClient();
+
   const [, setUser] = useRecoilState(userState);
 
   useEffect(() => setUser(auth));
