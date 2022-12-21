@@ -1,18 +1,18 @@
-import { Message } from '@/components';
+import { Authorization, Message } from '@/components';
 import { useRoom } from '@/hooks';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Header } from '@/layout';
+import { Header, Nav } from '@/layout';
 import styles from '@/styles/chat.module.css';
 import { dateToDate, dateToTime } from '@/utils';
 import { ChatForm } from '@/containers';
-import { Auth, userState } from '@/states';
-import { GetServerSidePropsContext } from 'next';
+import { userState } from '@/states';
 import { useRecoilState } from 'recoil';
 import { Fragment, useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import { useQueryClient } from '@tanstack/react-query';
-
+import { io, Socket } from 'socket.io-client';
+import { DefaultEventsMap } from '@socket.io/component-emitter';
+import { Auth } from '@/states/index';
+import { GetServerSidePropsContext } from 'next';
 interface chat {
   _id: string;
   message: string;
@@ -20,14 +20,14 @@ interface chat {
   id: string;
 }
 
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+
 const ChatRoom = ({ auth }: { auth: Auth }) => {
   const router = useRouter();
   const id = router.query.id;
   const { data: room } = useRoom(id as string);
   const [liveMessages, setLiveMessages] = useState([] as chat[] | []);
   const [user, setUser] = useRecoilState(userState);
-  const queryclient = useQueryClient();
-  const socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string);
   const chatting = [...(room?.chatting || []), ...liveMessages];
 
   useEffect(() => setUser(auth));
@@ -38,21 +38,28 @@ const ChatRoom = ({ auth }: { auth: Auth }) => {
   });
 
   useEffect((): any => {
-    socket.on('connect', () => {
+    if (room && (!socket || !socket.connected)) {
+      socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string);
+    }
+    if (socket?.connected) return () => socket.disconnect();
+  }, [room]);
+
+  useEffect((): any => {
+    if (room && socket) {
       socket.emit('joinRoom', { roomId: room?._id, userId: user._id });
       socket.on('message', chat => {
         setLiveMessages([...liveMessages, chat]);
       });
-    });
-    if (socket) return () => socket.disconnect();
+    }
+    return () => socket?.removeAllListeners();
   });
 
   const submitMessage = (message: string) => {
+    if (!message.trim()) return;
     socket.emit('message', {
       roomId: room?._id,
       chat: { id: user._id, message },
     });
-    queryclient.invalidateQueries(['rooms']);
   };
 
   return (
@@ -61,11 +68,14 @@ const ChatRoom = ({ auth }: { auth: Auth }) => {
         <title>BIND - 채팅 </title>
       </Head>
       <Header />
+      <div className="sr-only">
+        <Nav />
+      </div>
       <main className={styles.main_room}>
         {!room ? (
           <></>
         ) : (
-          <ul className={styles.container}>
+          <ul className={styles.list}>
             {chatting.map((chat: chat, i: number) => (
               <Fragment key={chat._id || i}>
                 {dateToDate(chatting[i - 1]?.time) !==
