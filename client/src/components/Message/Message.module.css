@@ -9,6 +9,7 @@
   @apply flex items-center;
   @apply px-3 py-1;
   @apply border border-gray-border rounded;
+  @apply whitespace-pre-wrap break-all;
 }
 
 .othersMessage {
@@ -17,6 +18,7 @@
   @apply px-3 py-1;
   @apply text-white bg-gray-bg;
   @apply border border-gray-bg rounded;
+  @apply whitespace-pre-wrap break-all;
 }
 
 .time {

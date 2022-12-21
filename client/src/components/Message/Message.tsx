@@ -15,9 +15,9 @@ export const Message = ({ message, time, isMyMessage }: MessageProps) => {
         styles.container,
         isMyMessage && 'flex-row-reverse'
       )}>
-      <p className={isMyMessage ? styles.myMessage : styles.othersMessage}>
+      <pre className={isMyMessage ? styles.myMessage : styles.othersMessage}>
         {message}
-      </p>
+      </pre>
       <span className={styles.time}>{time}</span>
     </li>
   );

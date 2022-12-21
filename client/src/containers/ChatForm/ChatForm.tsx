@@ -13,25 +13,32 @@ export const ChatForm = ({ submit }: ChatFormProps) => {
     setMessage((e.target as HTMLInputElement).value);
   };
 
+  const handleEnterKey = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    setMessage(() => (e.target as HTMLInputElement).value + '\n');
+  };
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const [input] = e.target as HTMLFormElement;
     submit(message);
     setMessage('');
+    (input as HTMLInputElement).focus();
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <label className="sr-only" htmlFor="message">
-        메세지 입력창
-      </label>
-      <input
-        type="text"
-        className={styles.input}
+      <textarea
+        // type="text"
+        aria-label="메세지 입력창"
+        className={styles.texterea}
         value={message}
         id="message"
         autoComplete="off"
         placeholder="메세지를 입력하세요..."
         onChange={handleChange}
+        onKeyDown={handleEnterKey}
       />
       <button aria-label="전송" className={styles.button}>
         <Send />
