@@ -8,7 +8,7 @@ export const RoomList = () => {
   if (!rooms) return <></>;
   return (
     <>
-      {rooms?.length > 0 && rooms.every((room: RoomProps) => room?.lastChat) ? (
+      {rooms?.length > 0 && rooms.some((room: RoomProps) => room?.lastChat) ? (
         <ul className={styles.container}>
           {rooms.map((room: RoomProps) => (
             <Room key={room.roomId} {...room} />
