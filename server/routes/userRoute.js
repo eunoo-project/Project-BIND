@@ -69,7 +69,7 @@ router.post('/register', async (req, res) => {
     res.cookie('accessToken', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
       httpOnly: true,
-      sameSite: 'none',
+      // domain: '.b-i-nd.com',
       secure: true,
     });
 
@@ -100,7 +100,7 @@ router.post('/signin', async (req, res) => {
   res.cookie('accessToken', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
     httpOnly: true,
-    sameSite: 'none',
+    // domain: '.b-i-nd.com',
     secure: true,
   });
 
