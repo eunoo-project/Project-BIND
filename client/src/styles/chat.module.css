@@ -5,7 +5,7 @@
 }
 
 .main_room {
-  @apply h-[calc(100vh-57px)] md:max-w-[768px] mx-auto pt-[68px];
+  @apply h-screen md:max-w-[768px] mx-auto pt-[68px];
   @apply md:border;
 }
 
@@ -13,13 +13,13 @@
   @apply hidden;
 }
 
-.container::-webkit-scrollbar {
-  @apply hidden;
+.list {
+  @apply w-full h-full pb-[57px];
+  @apply overflow-auto;
 }
 
-.container {
-  @apply w-full h-full;
-  @apply overflow-auto;
+.list::-webkit-scrollbar {
+  @apply hidden;
 }
 
 .date {
