@@ -35,25 +35,3 @@ export const Button = ({
     </>
   );
 };
-
-// import { useEffect } from 'react';
-// import axios from 'axios';
-// import { io } from 'socket.io-client';
-// import content from '../../../globals.d';
-// import { classNames } from 'classnames';
-// useEffect((): any => {
-// const fetch = async () => {
-//   const { data } = await axios.get('http://localhost:5500/');
-//   console.log(data);
-//   return data;
-// };
-// fetch();
-// const socket = io('http://localhost:5500', {
-//   path: '/chat',
-// });
-// console.log(socket);
-// socket.on('connect', () => {
-//   console.log('연결 성공', socket, socket.id);
-// });
-// if (socket) return () => socket.disconnect();
-// });

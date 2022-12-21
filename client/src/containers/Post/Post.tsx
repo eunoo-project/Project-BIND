@@ -73,16 +73,18 @@ export const Post = ({ post }: { post: postProps }) => {
   };
 
   const handleRemove = () => {
-    remove.mutate(
-      {
-        postId: post._id,
-      },
-      {
-        onSuccess() {
-          queryClient.invalidateQueries();
+    if (confirm('포스트를 삭제하시겠습니까?')) {
+      remove.mutate(
+        {
+          postId: post._id,
         },
-      }
-    );
+        {
+          onSuccess() {
+            queryClient.invalidateQueries();
+          },
+        }
+      );
+    }
   };
 
   return (

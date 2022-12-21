@@ -4,10 +4,36 @@ const { verifyToken } = require('../utils/verifyToken');
 
 router.get('/', async (req, res) => {
   const { _id } = verifyToken(req.cookies.accessToken);
+  const rooms = await Chat.find({ participants: { $in: _id } }).populate([
+    'participants',
+  ]);
 
-  const rooms = await Chat.find({ participants: { $in: _id } });
+  const response = rooms
+    .map(room => {
+      const opponent = room.participants.filter(
+        user => !user._id.equals(_id)
+      )[0];
 
-  res.send(rooms);
+      const unreadCnt = room.chatting.filter(
+        chat => !chat.isRead && chat.id !== _id
+      ).length;
+      return {
+        roomId: room._id,
+        opponent: {
+          _id: opponent._id,
+          userId: opponent.userId,
+          imageURL: opponent.imageURL,
+        },
+        lastChat: room.chatting[room.chatting.length - 1],
+        unreadCnt,
+      };
+    })
+    .sort(
+      (b, a) =>
+        (a.lastChat?.time || new Date()) - (b.lastChat?.time || new Date())
+    );
+
+  res.send(response);
 });
 
 // 채팅방 찾기 미들웨어
@@ -15,35 +41,29 @@ const findRoom = async (req, res, next) => {
   const { _id: user1 } = verifyToken(req.cookies.accessToken);
   const { id: user2 } = req.params;
 
-  // prettier-ignore
-  let room = await Chat.findOne({ participants: { $in: [[user2, user1],[user1, user2]] }});
+  try {
+    // prettier-ignore
+    let room = await Chat.findOne({ participants: { $in: [[user2, user1],[user1, user2]] }});
 
-  if (!room) {
-    room = new Chat({ participants: [user1, user2] });
-    await room.save();
+    if (!room) {
+      room = new Chat({ participants: [user1, user2] });
+      await room.save();
+    }
+    req.body.room = room;
+
+    next();
+  } catch (e) {
+    res.end();
   }
-  req.body.room = room;
-
-  next();
 };
 
 router.get('/:id', findRoom, (req, res) => {
   res.send(req.body.room);
 });
 
-router.post('/:id', async (req, res) => {
-  const { _id: id } = verifyToken(req.cookies.accessToken);
-  const { id: _id } = req.params;
-  const chat = { id, message: req.body.message };
-
-  await Chat.findOneAndUpdate({ _id }, { $push: { chatting: chat } });
-
-  res.end();
-});
-
-router.delete('/:id', async (req, res) => {
-  await Chat.findOneAndDelete({ _id: req.params.id });
-  res.end();
-});
+// router.delete('/:id', async (req, res) => {
+//   await Chat.findOneAndDelete({ _id: req.params.id });
+//   res.end();
+// });
 
 module.exports = router;

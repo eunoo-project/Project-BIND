@@ -10,8 +10,8 @@ const app = express();
 const safesitelist = [
   'http://localhost:3000',
   'http://localhost:6006',
-  'https://project-bind-g2rnfnxv3-project-bind.vercel.app',
-  'https://project-bind.vercel.app',
+  'https://www.b-i-nd.com',
+  'https://b-i-nd.com',
 ];
 const corsOptions = {
   origin(origin, callback) {
@@ -37,13 +37,12 @@ const io = new Server(server, {
   cors: {
     origin: [
       'http://localhost:3000',
-      'https://project-bind-g2rnfnxv3-project-bind.vercel.app',
-      'https://project-bind.vercel.app',
+      'https://www.b-i-nd.com',
+      'https://b-i-nd.com',
     ],
     methods: ['GET', 'POST'],
     credentials: true,
   },
-  path: '/chatting',
 });
 
 // DB 연결
@@ -65,12 +64,9 @@ app.use('/post', postRoute);
 app.use('/chat', chatRoute);
 
 // socket.io 구성
+const socket = require('./socket');
 
-io.on('connection', socket => {
-  console.log('hi', socket.id);
-  // io.emit('event_name', msg);
-});
-
+socket(io);
 // 서버 구동
 
 server.listen(process.env.PORT || 8080, () => {

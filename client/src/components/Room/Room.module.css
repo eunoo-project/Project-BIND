@@ -1,0 +1,33 @@
+.conatiner {
+  @apply relative;
+}
+
+.room {
+  @apply flex flex-wrap justify-between items-center gap-x-10 gap-y-4;
+  @apply relative h-[89px];
+  @apply p-3 md:px-6;
+  @apply list-none;
+  @apply border-b border-b-gray-border;
+  @apply cursor-pointer;
+}
+
+.date {
+  @apply font-bold;
+  @apply text-sm md:text-base;
+}
+
+.message {
+  @apply w-[62%] sm:w-[80%] md:w-[75%] inline-block overflow-hidden whitespace-nowrap text-ellipsis;
+  @apply text-sm md:text-base leading-6;
+}
+
+.count {
+  @apply w-10 h-6;
+  @apply bg-red;
+  @apply text-center font-bold text-white;
+  @apply rounded-lg;
+}
+
+.button {
+  @apply absolute right-3 bottom-[11.5px] md:right-5 z-20;
+}
