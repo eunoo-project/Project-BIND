@@ -4,13 +4,12 @@
   @apply font-bold;
 }
 
-.container dd {
+.list {
   @apply w-[45px];
-  @apply text-center;
+  @apply flex flex-col justify-center items-center;
 }
 
-.container dt {
-  @apply w-[45px];
+.list span {
+  @apply inline-block w-[45px];
   @apply text-center;
-  @apply order-1;
 }

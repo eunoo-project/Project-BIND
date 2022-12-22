@@ -9,3 +9,5 @@ export * from './PostInfo/PostInfo';
 export * from './Authorization/Authorization';
 export * from './Icon';
 export * from './Room/Room';
+export * from './Modal/Modal';
+export * from './UserList/UserList';
