@@ -1,8 +1,6 @@
 import styles from './Modal.module.css';
 import { Close } from '@/components';
 import { ReactNode } from 'react';
-import { modalState } from '@/states';
-import { useRecoilState } from 'recoil';
 
 interface ModalProps {
   children: ReactNode;
