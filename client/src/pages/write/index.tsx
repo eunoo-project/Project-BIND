@@ -56,6 +56,9 @@ const Write = ({ auth }: { auth: Auth }) => {
         (input as HTMLInputElement).files = null;
         router.push('/');
       },
+      onError() {
+        alert('허용 가능한 용량을 초과하였습니다.');
+      },
     });
   };
 
