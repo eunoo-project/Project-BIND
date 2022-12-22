@@ -17,7 +17,7 @@ export interface postProps {
     imageURL?: string;
   };
   imageURL: string;
-  like: [string];
+  like: [{ _id: string; userId: string; imageURL?: string }];
   likeCnt: string;
   publishDate: Date;
   description: string;
@@ -31,6 +31,7 @@ export const Post = ({ post }: { post: postProps }) => {
   const patch = useMutation(updatePost);
   const remove = useMutation(deletePost);
   const queryClient = useQueryClient();
+  const likers = post.like.map(liker => liker._id);
 
   const handleEditMode = () => setEditMode(!editmode);
 
@@ -61,7 +62,7 @@ export const Post = ({ post }: { post: postProps }) => {
       {
         postId: post._id,
         payload: {
-          like: post.like.includes(user._id as string) ? 'remove' : 'add',
+          like: likers.includes(user._id as string) ? 'remove' : 'add',
         },
       },
       {
@@ -88,42 +89,45 @@ export const Post = ({ post }: { post: postProps }) => {
   };
 
   return (
-    <li className={styles.conatiner}>
-      <PostNav
-        author={post.author}
-        editMode={editmode}
-        myPost={post.author._id === user._id}
-        handleEditMode={handleEditMode}
-        handleSubmit={handleSubmit}
-        handleRemove={handleRemove}
-      />
-      <figure className={styles.figure}>
-        <Image
-          src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${post.imageURL}`}
-          alt=""
-          width={0}
-          height={0}
-          unoptimized={true}
-          priority
+    <>
+      <li className={styles.conatiner}>
+        <PostNav
+          author={post.author}
+          editMode={editmode}
+          myPost={post.author._id === user._id}
+          handleEditMode={handleEditMode}
+          handleSubmit={handleSubmit}
+          handleRemove={handleRemove}
         />
-        <figcaption className="sr-only">{`${post.author.userId} 님의 게시물`}</figcaption>
-      </figure>
-      {!editmode ? (
-        <PostInfo
-          isLikePost={post.like.includes(user._id as string)}
-          likeCnt={post.likeCnt}
-          description={post.description}
-          publishDate={dateToString(post.publishDate)}
-          handleLike={handleLike}
-        />
-      ) : (
-        <textarea
-          className={styles.textarea}
-          value={editValue}
-          placeholder="포스트의 내용을 입력하세요."
-          onChange={handleChange}
-        />
-      )}
-    </li>
+        <figure className={styles.figure}>
+          <Image
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${post.imageURL}`}
+            alt=""
+            width={0}
+            height={0}
+            unoptimized={true}
+            priority
+          />
+          <figcaption className="sr-only">{`${post.author.userId} 님의 게시물`}</figcaption>
+        </figure>
+        {!editmode ? (
+          <PostInfo
+            postId={post._id as string}
+            isLikePost={likers.includes(user._id as string)}
+            like={post.like}
+            description={post.description}
+            publishDate={dateToString(post.publishDate)}
+            handleLike={handleLike}
+          />
+        ) : (
+          <textarea
+            className={styles.textarea}
+            value={editValue}
+            placeholder="포스트의 내용을 입력하세요."
+            onChange={handleChange}
+          />
+        )}
+      </li>
+    </>
   );
 };

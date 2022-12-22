@@ -4,7 +4,7 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { uploadImage, deleteImage } = require('../utils/multer');
-const { User } = require('../models');
+const { User, Post } = require('../models');
 const { verifyToken } = require('../utils/verifyToken');
 
 router.get('/auth', async (req, res) => {
@@ -69,7 +69,7 @@ router.post('/register', async (req, res) => {
     res.cookie('accessToken', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
       httpOnly: true,
-      // domain: '.b-i-nd.com',
+      domain: '.b-i-nd.com',
       secure: true,
     });
 
@@ -100,7 +100,7 @@ router.post('/signin', async (req, res) => {
   res.cookie('accessToken', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
     httpOnly: true,
-    // domain: '.b-i-nd.com',
+    domain: '.b-i-nd.com',
     secure: true,
   });
 
@@ -128,7 +128,13 @@ router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const { _id } = verifyToken(req.cookies.accessToken);
 
-  const user = await User.findOne({ _id: id }).populate('posts');
+  const user = await User.findOne({ _id: id }).populate([
+    'posts',
+    'binder',
+    'binding',
+  ]);
+
+  const posts = await Post.find({ author: id }).populate(['like']);
 
   const response = {
     userInfo: {
@@ -136,11 +142,20 @@ router.get('/:id', async (req, res) => {
       userId: user.userId,
       imageURL: user.imageURL,
       postCnt: user.posts.length,
-      binderCnt: user.binder.length,
+      binder: user.binder.map(binder => ({
+        _id: binder._id,
+        userId: binder.userId,
+        imageURL: binder.imageURL,
+      })),
+      binding: user.binding.map(binding => ({
+        _id: binding._id,
+        userId: binding.userId,
+        imageURL: binding.imageURL,
+      })),
       bindingCnt: user.binding.length,
-      isBinding: user.binder.includes(_id),
+      isBinding: !!user.binder.find(binder => binder._id.equals(_id)),
     },
-    posts: user.posts
+    posts: posts
       .map(post => ({
         ...post._doc,
         author: { _id: user._id, userId: user.userId, imageURL: user.imageURL },
