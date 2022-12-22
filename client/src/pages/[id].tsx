@@ -4,16 +4,18 @@ import { useRouter } from 'next/router';
 import { Nav, Header } from '@/layout';
 import { Post, postProps, User } from '@/containers';
 import { useUser } from '@/hooks';
-import { Auth, userState } from '@/states/index';
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+// import { Authorization } from '@/components';
 import { GetServerSidePropsContext } from 'next';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/states';
+import { useEffect } from 'react';
+import { Auth } from '@/states/index';
 
 const UserPage = ({ auth }: { auth: Auth }) => {
   const router = useRouter();
   const id = router.query.id;
-  const [, setUser] = useRecoilState(userState);
   const { data } = useUser(id as string);
+  const [, setUser] = useRecoilState(userState);
 
   useEffect(() => setUser(auth));
 
@@ -62,11 +64,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   );
   const data = await response.json();
-
-  // const { data } = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
-  //   { headers: { Cookie: cookie } }
-  // );
 
   if (!data) {
     return {

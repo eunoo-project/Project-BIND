@@ -2,6 +2,9 @@
   "name": "next-test",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,6 +14,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@socket.io/component-emitter": "^4.0.0",
     "@tanstack/react-query": "^4.19.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
@@ -19,6 +23,7 @@
     "classnames": "^2.3.2",
     "eslint-config-next": "13.0.4",
     "next": "13.0.4",
+    "next-pwa": "^5.6.0",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

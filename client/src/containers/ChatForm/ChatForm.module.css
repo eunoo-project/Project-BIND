@@ -1,0 +1,29 @@
+.form {
+  @apply w-full md:w-[768px];
+  @apply flex;
+  @apply fixed bottom-0 left-1/2 -translate-x-1/2;
+  @apply border-t border-l;
+}
+
+.texterea {
+  @apply flex-1 h-[58px];
+  @apply px-6 py-4;
+  @apply outline-none;
+  @apply text-black;
+  @apply transition-all focus:border-y-2 md:focus:border-2 focus:border-black;
+  @apply resize-none;
+}
+
+.texterea::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.button {
+  @apply w-[61px] h-[58px];
+  @apply flex justify-center items-center;
+  @apply bg-black;
+}
+
+.button svg {
+  @apply fill-white;
+}

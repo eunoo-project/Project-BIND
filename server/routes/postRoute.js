@@ -12,13 +12,14 @@ router.get('/', async (req, res) => {
     const { binding } = await User.findOne({ _id });
 
     const posts = await Post.find({ author: { $in: [_id, ...binding] } })
-      .populate('author')
+      .populate(['author', 'like'])
       .sort({
         publishDate: -1,
       });
 
     const response = posts.map(post => ({
       ...post._doc,
+      like: post.like,
       author: {
         _id: post.author._id,
         userId: post.author.userId,

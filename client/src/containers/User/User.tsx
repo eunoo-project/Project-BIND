@@ -11,8 +11,8 @@ interface UserProps {
   userId: string;
   imageURL?: string;
   postCnt: string;
-  binderCnt: string;
-  bindingCnt: string;
+  binder: [{ _id: string; userId: string; imageURL?: string }];
+  binding: [{ _id: string; userId: string; imageURL?: string }];
   isBinding: boolean;
 }
 
@@ -61,8 +61,8 @@ export const User = ({ userInfo }: { userInfo: UserProps }) => {
       <div className={styles.wrapper}>
         <UserInfo
           postCnt={userInfo.postCnt}
-          binderCnt={userInfo.binderCnt}
-          bindingCnt={userInfo.bindingCnt}
+          binder={userInfo.binder}
+          binding={userInfo.binding}
         />
         {user._id !== userInfo._id ? (
           <div className={styles.buttons}>
@@ -80,7 +80,7 @@ export const User = ({ userInfo }: { userInfo: UserProps }) => {
             <Button
               size="small"
               content="채팅"
-              // onClick={() => router.push('/chat')}
+              onClick={() => router.push(`/chat/${userInfo._id}`)}
             />
           </div>
         ) : (

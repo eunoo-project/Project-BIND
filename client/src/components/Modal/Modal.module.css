@@ -1,0 +1,28 @@
+.modal {
+  @apply w-full h-screen pt-[24vh];
+  @apply fixed bottom-0 left-1/2 -translate-x-1/2 z-50;
+  @apply bg-black bg-opacity-20;
+}
+
+.wrapper {
+  @apply w-full max-w-[768px] h-full relative;
+  @apply bg-gray-fill;
+  @apply text-white;
+  @apply rounded-t-3xl;
+  @apply pt-8 mx-auto;
+  @apply animate-[open-modal_0.3s_both];
+}
+
+.close {
+  @apply text-right;
+  @apply pr-8;
+}
+
+@keyframes open-modal {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
