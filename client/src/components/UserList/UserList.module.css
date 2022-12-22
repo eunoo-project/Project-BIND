@@ -1,0 +1,18 @@
+.list {
+  @apply pt-2 px-8;
+  @apply overflow-auto;
+}
+
+.list::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.list li {
+  @apply p-2 md:p-4;
+  @apply border-b;
+}
+.list button {
+  @apply w-full h-full;
+  @apply p-1;
+  @apply flex items-start;
+}
