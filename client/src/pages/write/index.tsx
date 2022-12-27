@@ -1,6 +1,6 @@
 import styles from '@/styles/write.module.css';
 import { Button, PlusBig } from '@/components';
-import { Header } from '@/layout';
+import { Header, Nav } from '@/layout';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -105,6 +105,9 @@ const Write = ({ auth }: { auth: Auth }) => {
             <Button type="submit" size="big" content="등록" />
           </div>
         </form>
+        <div className="sr-only">
+          <Nav />
+        </div>
       </main>
     </>
   );
