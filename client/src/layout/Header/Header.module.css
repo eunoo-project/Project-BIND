@@ -79,3 +79,7 @@
   @apply px-2 py-7 text-center;
   @apply font-semibold text-gray-fill text-sm;
 }
+
+.alarm {
+  @apply absolute right-0;
+}

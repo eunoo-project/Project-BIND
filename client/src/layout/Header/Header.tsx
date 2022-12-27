@@ -1,4 +1,4 @@
-import { LogoBlack, LogoWhite, Chat, User, Search } from '@/components';
+import { LogoBlack, LogoWhite, Chat, User, Search, RedDot } from '@/components';
 import styles from './Header.module.css';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -6,7 +6,7 @@ import { userState, themeState } from '@/states';
 import { useRecoilState } from 'recoil';
 import { UserProfile } from '@/components';
 import { useState, useEffect } from 'react';
-import { useSearchUsers } from '../../hooks';
+import { useAlarm, useSearchUsers } from '../../hooks';
 
 const darkHeader = 'dark:shadow-dark dark:bg-black';
 
@@ -22,6 +22,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const { data: searchUsers } = useSearchUsers(inputValue);
+  const { data: alarm } = useAlarm();
 
   useEffect(() => {
     document.body.addEventListener('click', (e: MouseEvent) => {
@@ -96,7 +97,12 @@ export const Header = () => {
             </output>
           )}
         </form>
-        <Link href="/chat" aria-label="채팅페이지">
+        <Link href="/chat" aria-label="채팅페이지" className="relative">
+          {alarm && (
+            <div className={styles.alarm}>
+              <RedDot />
+            </div>
+          )}
           <Chat />
         </Link>
         <Link href={`/${user._id}`} aria-label="마이페이지">
