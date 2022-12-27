@@ -19,7 +19,6 @@ router.get('/auth', async (req, res) => {
       imageURL: authUser.imageURL,
     });
   } catch (e) {
-    console.log(e);
     res.send(false);
   }
 });
@@ -46,7 +45,7 @@ router.get('/search', async (req, res) => {
 router.post('/register', async (req, res) => {
   // id 중복 체크
   const idExist = await User.findOne({ userId: req.body.userId });
-  if (idExist) return res.send('이미 존재하는 id입니다.');
+  if (idExist) return res.send('이미 존재하는 아이디입니다.');
 
   // 패스워드 Hash
   const salt = await bcrypt.genSalt(10);
@@ -117,14 +116,17 @@ router.post('/signin', async (req, res) => {
 router.post('/signout', (req, res) => {
   res.clearCookie('accessToken', {
     httpOnly: true,
-    sameSite: 'none',
+    domain: '.b-i-nd.com',
     secure: true,
   });
+  res.clearCookie('GCLB');
   res.end();
 });
 
 // userInfo -----------------------------------------------------
 router.get('/:id', async (req, res) => {
+  if (!req.cookies.accessToken) return res.send(false);
+
   const { id } = req.params;
   const { _id } = verifyToken(req.cookies.accessToken);
 
