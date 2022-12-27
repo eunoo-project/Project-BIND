@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import styles from '@/styles/main.module.css';
-import { useRouter } from 'next/router';
 import { Nav, Header } from '@/layout';
 import { Post, postProps, User } from '@/containers';
 import { useUser } from '@/hooks';
@@ -11,10 +10,8 @@ import { userState } from '@/states';
 import { useEffect } from 'react';
 import { Auth } from '@/states/index';
 
-const UserPage = ({ auth }: { auth: Auth }) => {
-  const router = useRouter();
-  const id = router.query.id;
-  const { data } = useUser(id as string);
+const UserPage = ({ auth, userId }: { auth: Auth; userId: string }) => {
+  const { data } = useUser(userId as string);
   const [, setUser] = useRecoilState(userState);
 
   useEffect(() => setUser(auth));
@@ -51,6 +48,7 @@ export default UserPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { cookie } = context.req.headers;
+  const { id }: any = context.params;
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
@@ -75,6 +73,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   return {
-    props: { auth: { ...data } },
+    props: { auth: { ...data }, userId: id },
   };
 }
