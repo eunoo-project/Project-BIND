@@ -1,25 +1,30 @@
 .main {
   @apply h-screen md:max-w-[768px] mx-auto pt-[68px];
   @apply overflow-auto;
-  @apply md:border;
+  @apply md:border-x;
 }
 
 .main_room {
   @apply h-screen md:max-w-[768px] mx-auto pt-[68px];
-  @apply md:border;
+  @apply md:border-x;
 }
 
 .main::-webkit-scrollbar {
   @apply hidden;
 }
 
-.list {
+.wrapper {
   @apply w-full h-full pb-[57px];
   @apply overflow-auto;
+  @apply flex flex-wrap items-end md:items-start;
 }
 
-.list::-webkit-scrollbar {
+.wrapper::-webkit-scrollbar {
   @apply hidden;
+}
+
+.list {
+  @apply w-full;
 }
 
 .date {

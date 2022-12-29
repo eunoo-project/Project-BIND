@@ -2,6 +2,9 @@
 
 const withPWA = require('next-pwa')({
   dest: 'public',
+  runtimeCaching: [],
+  cacheStartUrl: false,
+  dynamicStartUrl: false,
 });
 
 const nextConfig = {

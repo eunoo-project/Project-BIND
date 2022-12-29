@@ -3,6 +3,8 @@ const { Chat } = require('../models');
 const { verifyToken } = require('../utils/verifyToken');
 
 router.get('/', async (req, res) => {
+  if (!req.cookies.accessToken) return res.send(false);
+
   const { _id } = verifyToken(req.cookies.accessToken);
   const rooms = await Chat.find({ participants: { $in: _id } }).populate([
     'participants',
@@ -61,9 +63,21 @@ router.get('/:id', findRoom, (req, res) => {
   res.send(req.body.room);
 });
 
-// router.delete('/:id', async (req, res) => {
-//   await Chat.findOneAndDelete({ _id: req.params.id });
-//   res.end();
-// });
+router.get('/alarm/unread', async (req, res) => {
+  if (!req.cookies.accessToken) return res.send(false);
+
+  const { _id } = verifyToken(req.cookies.accessToken);
+
+  const rooms = await Chat.find({ participants: { $in: _id } });
+
+  const unreadCnt = rooms
+    ?.map(room => room.chatting)
+    .flat(1)
+    ?.filter(chat => !chat.isRead && chat.id !== _id).length;
+
+  if (!rooms || unreadCnt <= 0) return res.send(false);
+
+  res.send(true);
+});
 
 module.exports = router;

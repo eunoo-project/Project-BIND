@@ -6,6 +6,7 @@ const { User, Post } = require('../models');
 const { verifyToken } = require('../utils/verifyToken');
 
 router.get('/', async (req, res) => {
+  if (!req.cookies.accessToken) return res.send(false);
   try {
     const { _id } = verifyToken(req.cookies.accessToken);
 

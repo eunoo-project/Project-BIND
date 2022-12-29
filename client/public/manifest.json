@@ -3,7 +3,7 @@
   "background_color": "#222222",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/login",
   "name": "BIND",
   "short_name": "BIND",
   "description": "친구와 BIND로 묶이다!",

@@ -18,6 +18,7 @@ import Logo from '@/../public/assets/logo-big.svg';
 import Exit from '@/../public/assets/exit.svg';
 import Send from '@/../public/assets/send.svg';
 import Close from '@/../public/assets/close.svg';
+import RedDot from '@/../public/assets/dot.svg';
 
 export {
   LogoBlack,
@@ -40,4 +41,5 @@ export {
   Exit,
   Send,
   Close,
+  RedDot,
 };

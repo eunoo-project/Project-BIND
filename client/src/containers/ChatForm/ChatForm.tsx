@@ -16,7 +16,7 @@ export const ChatForm = ({ submit }: ChatFormProps) => {
   const handleEnterKey = (e: React.KeyboardEvent) => {
     if (e.key !== 'Enter') return;
     e.preventDefault();
-    setMessage(() => (e.target as HTMLInputElement).value + '\n');
+    setMessage(prevMessage => prevMessage + '\n');
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
