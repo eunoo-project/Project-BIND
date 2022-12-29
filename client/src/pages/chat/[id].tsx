@@ -1,6 +1,5 @@
 import { Authorization, Message } from '@/components';
 import { useRoom } from '@/hooks';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Header, Nav } from '@/layout';
 import styles from '@/styles/chat.module.css';
@@ -20,12 +19,10 @@ interface chat {
   id: string;
 }
 
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+let socket: Socket<DefaultEventsMap, DefaultEventsMap> | null;
 
-const ChatRoom = ({ auth }: { auth: Auth }) => {
-  const router = useRouter();
-  const id = router.query.id;
-  const { data: room } = useRoom(id as string);
+const ChatRoom = ({ auth, roomId }: { auth: Auth; roomId: string }) => {
+  const { data: room } = useRoom(roomId as string);
   const [liveMessages, setLiveMessages] = useState([] as chat[] | []);
   const [user, setUser] = useRecoilState(userState);
   const chatting = [...(room?.chatting || []), ...liveMessages];
@@ -33,7 +30,7 @@ const ChatRoom = ({ auth }: { auth: Auth }) => {
   useEffect(() => setUser(auth));
 
   useEffect(() => {
-    const list = document.querySelector('ul');
+    const list = document.getElementById('wrapper');
     list?.scroll(0, list.scrollHeight);
   });
 
@@ -41,7 +38,11 @@ const ChatRoom = ({ auth }: { auth: Auth }) => {
     if (room && (!socket || !socket.connected)) {
       socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string);
     }
-    if (socket?.connected) return () => socket.disconnect();
+    if (socket)
+      return () => {
+        socket?.disconnect();
+        socket = null;
+      };
   }, [room]);
 
   useEffect((): any => {
@@ -51,12 +52,14 @@ const ChatRoom = ({ auth }: { auth: Auth }) => {
         setLiveMessages([...liveMessages, chat]);
       });
     }
-    return () => socket?.removeAllListeners();
+    return () => {
+      socket?.removeAllListeners();
+    };
   });
 
   const submitMessage = (message: string) => {
     if (!message.trim()) return;
-    socket.emit('message', {
+    socket?.emit('message', {
       roomId: room?._id,
       chat: { id: user._id, message },
     });
@@ -75,26 +78,28 @@ const ChatRoom = ({ auth }: { auth: Auth }) => {
         {!room ? (
           <></>
         ) : (
-          <ul className={styles.list}>
-            {chatting.map((chat: chat, i: number) => (
-              <Fragment key={chat._id || i}>
-                {dateToDate(chatting[i - 1]?.time) !==
-                  dateToDate(chat.time) && (
-                  <li className={styles.date}>{dateToDate(chat.time)}</li>
-                )}
-                <Message
-                  message={chat.message}
-                  time={
-                    dateToTime(chatting[i + 1]?.time) !==
-                      dateToTime(chat.time) || chatting[i + 1]?.id !== chat.id
-                      ? dateToTime(chat.time)
-                      : ''
-                  }
-                  isMyMessage={chat.id === user._id}
-                />
-              </Fragment>
-            ))}
-          </ul>
+          <div id="wrapper" className={styles.wrapper}>
+            <ul className={styles.list}>
+              {chatting.map((chat: chat, i: number) => (
+                <Fragment key={chat._id || i}>
+                  {dateToDate(chatting[i - 1]?.time) !==
+                    dateToDate(chat.time) && (
+                    <li className={styles.date}>{dateToDate(chat.time)}</li>
+                  )}
+                  <Message
+                    message={chat.message}
+                    time={
+                      dateToTime(chatting[i + 1]?.time) !==
+                        dateToTime(chat.time) || chatting[i + 1]?.id !== chat.id
+                        ? dateToTime(chat.time)
+                        : ''
+                    }
+                    isMyMessage={chat.id === user._id}
+                  />
+                </Fragment>
+              ))}
+            </ul>
+          </div>
         )}
         <ChatForm submit={submitMessage} />
       </main>
@@ -106,6 +111,7 @@ export default ChatRoom;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { cookie } = context.req.headers;
+  const { id }: any = context.params;
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/user/auth`,
@@ -130,6 +136,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   return {
-    props: { auth: { ...data } },
+    props: { auth: { ...data }, roomId: id },
   };
 }

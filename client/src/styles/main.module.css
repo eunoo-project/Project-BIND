@@ -1,5 +1,5 @@
 .main {
-  @apply h-screen md:max-w-[768px] mx-auto pt-[68px] pb-4;
+  @apply h-screen w-full pt-[68px] pb-4;
   @apply overflow-auto;
 }
 

@@ -6,12 +6,14 @@ import { userState, themeState } from '@/states';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const Nav = () => {
   const [user, setUser] = useRecoilState(userState);
   const [theme, setTheme] = useRecoilState(themeState);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     !localStorage.getItem('BIND_THEME') &&
@@ -34,6 +36,7 @@ export const Nav = () => {
       user,
     });
     setUser({ _id: null, userId: null, imageURL: null });
+    queryClient.removeQueries();
     router.push('/login');
   };
 
