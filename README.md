@@ -26,10 +26,10 @@
 
 ## 🗄️ 진행과정 및 자료
 
+### 💡 프로젝트 동작 GIF - [바로가기](https://github.com/eunoo-project/Project-BIND/wiki/BIND_%EA%B2%B0%EA%B3%BC)
+
 ### 💡 프로젝트 진행과정 - [바로가기](https://github.com/eunoo-project/Project-BIND/wiki)
 
 ### 💡 프로젝트 회고 - [바로가기](https://github.com/eunoo-project/Project-BIND/wiki/BIND_%ED%9A%8C%EA%B3%A0)
-
-### 💡 프로젝트 결과 - [바로가기](https://github.com/eunoo-project/Project-BIND/wiki/BIND_%EA%B2%B0%EA%B3%BC)
 
 ### 💡 프로젝트 컨벤션 - [바로가기](https://github.com/eunoo-project/Project-BIND/wiki/BIND_%EC%BB%A8%EB%B2%A4%EC%85%98)
